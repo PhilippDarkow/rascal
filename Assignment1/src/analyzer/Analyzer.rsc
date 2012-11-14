@@ -12,9 +12,11 @@ private CountFunction countFunction;
 private CountIf countIf;
 private CountLines countLines;
 
-public void main(){
+public void main(loc file){
 	// Step 1 : We need to read the project with the reader
+	loc program = reader.readProject(file);	
 	// Step 2 : Counting the lines of code
+	
 	// Step 3 : Counting the If statements
 	// Step 4 : counting the function
 	// Step 5 : counting the classes

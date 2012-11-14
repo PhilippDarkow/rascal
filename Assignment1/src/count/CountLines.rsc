@@ -1,5 +1,7 @@
 module count::CountLines
 
-public int countLines(file){
+import IO;
 
+public int countLines(loc project){    
+    return readFileLines(project);
 }
