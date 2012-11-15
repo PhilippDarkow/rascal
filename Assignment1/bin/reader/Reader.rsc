@@ -3,13 +3,17 @@ module reader::Reader
 import util::Resources;
 import IO;
 
-//Constructor
-int max;
-//data READER = reader(reader::Reader reader);
+/* Method to read a file
+   example readProjectFileOneString(|file://C:/Users/../workspace/SmallSQL/src/smallsql/database/Column.java|);
+   @return the file as one string
+*/
+public str readProjectFileOneString(loc file){
+	return readFile(file); // http://tutor.rascal-mpl.org/Rascal/Libraries/Prelude/IO/readFile/readFile.html
+}
 
-public void readFile(loc file){
-	println(file);
-	// example readFile(|file://C:/Users/../workspace/SmallSQL/src/smallsql/database/Column.java|);
-	return readFile(project); // http://tutor.rascal-mpl.org/Rascal/Libraries/Prelude/IO/readFile/readFile.html
-	// return getProject(project);
+/* Method to read the file
+   @return the file in an array of string ( each position is one line )
+*/
+public list[str] readProjectFileAsArray(loc file){
+	return readFileLines(file);
 }

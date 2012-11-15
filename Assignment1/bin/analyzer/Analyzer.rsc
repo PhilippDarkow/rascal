@@ -8,18 +8,12 @@ import count::CountFunctions;
 import count::CountIf;
 import count::CountLines;
 
-
-//Reader reader;
-//private CountClasses countClasses;
-//private CountFunctions countFunction;
-//private CountIf countIf;
-//private CountLines lines;
-
 public void main(loc file){
 	// Step 1 : We need to read the project with the reader
-	//loc workFile = Reader.readProject(file);	
+	str project = readProjectFileOneString(file);
+	list[str] projectArray = readProjectFileAsArray(file); 	
 	// Step 2 : Counting the lines of code
-	println(CountLines.countLines(file));
+	println("Lines in file total: <countLinesTotal(projectArray)>");
 	// Step 3 : Counting the If statements
 	// Step 4 : counting the function
 	// Step 5 : counting the classes
