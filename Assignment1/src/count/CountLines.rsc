@@ -11,26 +11,38 @@ public int countLinesTotal(list[str] file){
     return size(file);
 }
 
-/* Method to count the comment lines of a file 
+/* Method to count the comment of a file 
    @param file the file as a list of string
-   @return the comment lines of a file
+   @return the comment lines of a file  \/\*[^/*]*(?:(?!\/\*|\*\/)[/*][^/*]*)*\*\/   http://regexpal.com/
 */
-public int countCommentLines(list[str] file){
-
+public int countComment(list[str] file){	
+  n = 0;
+  for(s <- file)
+    if(/\*(.|[\r\n])*?\*/ := s)  // find comment 
+      n +=1;
+  return n;
 }
 
-/* Method to count the blank lines of a file 
-   @param file the file as a list of string
-   @return the blank lines of a file
-*/
+// 34 Blanc lines need it to be blank but at the moment i get 35
 public int countBlankLines(list[str] file){
-
+	n = 0;
+	println(file);
+  for(s <- file)
+    if(/^[ \t\r\n]*$/ := s)  // http://generally.wordpress.com/2010/09/23/regular-expression-for-a-line-with-only-white-spaces/
+      n +=1;
+  return n;
 }
 
-/* Method to count the code lines of a file 
-   @param file the file as a list of string
-   @return the code lines of a file
-*/
-public int countCodeLines(list[str] file){
+public int countImports(list[str] file){
+	n = 0;
+  for(s <- file)
+    if(/import/ := s) 
+      n +=1;
+  return n;
+}
 
+public int countCodeLines(list[str] file){
+	int codeLines = size(file);
+	codeLines = codeLines - (countBlankLines(file) + countComment(file));
+	return codeLines;
 }
