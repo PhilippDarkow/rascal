@@ -59,6 +59,9 @@ n = 0;
   return n; 
 }
 
+/* Method to get the amount of String functions of a file
+   @return int the number of String functions
+*/
 public int countStringFunctions(list[str] file){
 n = 0;
   for(s <- file)

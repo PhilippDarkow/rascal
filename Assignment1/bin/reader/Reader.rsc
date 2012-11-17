@@ -21,6 +21,6 @@ public list[str] readProjectFileAsArray(loc file){
 /* Method to read a project
    @return the project with getProject
 */
-public list[str] giveProject(loc project){
+public Resource giveProject(loc project){
 	return getProject(project);
 }
