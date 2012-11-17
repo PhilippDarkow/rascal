@@ -3,7 +3,10 @@ module count::CountLoops
 import List;
 import String;
 
-// Counting all fors if for is so :  for(int i= 
+/* Method to count the total for loops in a file. Is using a regular expression to find for loops that are
+   build in that format for(int i=
+   @return int the total number of for loops 
+*/
 public int countTotalFors(list[str] file){
 	n = 0;
   for(s <- file)
@@ -12,11 +15,17 @@ public int countTotalFors(list[str] file){
   return n;	
 }
 
+/* Method to count the total inner for loops in a file.
+   @return int the total number of inner for loops 
+*/
 public int countInnerFors(list[str] file){
 
 }
-
-// Counting all whiles ( if the while loop is :  while(iterator.hasNext()){  
+  
+/* Method to count the total while loops in a file. Is using a regular expression to find while loops that are
+   build in currently that format while(iterator.hasNext()){
+   @return int the total number of for loops 
+*/  
 public int countWhiles(list[str] file){
 n = 0;
   for(s <- file)
@@ -25,9 +34,11 @@ n = 0;
   return n; 
 }
 
-// Counting all while and for loops ( also when while( is just a comment ) !!! 
-public int countLoops(str file){
-	int loops = countWhiles(file) + countFors(file);
+/* Method to count the total loops in a file.
+   @return int the total number of for loops 
+*/  
+public int countLoops(list[str] file){
+	int loops = countWhiles(file) + countTotalFors(file);
 	return loops;
 }
 

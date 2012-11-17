@@ -80,3 +80,8 @@ n = 0;
       n +=1;
   return n; 
 }
+
+public int countTotalFunctions(list[str] file){
+    int functions = countVoidFunctions(file) + countIntFunctions(file) + countBooleanFunctions(file) + countStringFunctions(file) + countSpecialFunctions(file);
+	return functions;
+}

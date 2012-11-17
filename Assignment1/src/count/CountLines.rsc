@@ -6,14 +6,16 @@ import List;
 /* Method to count the total lines of a file 
    @param file the file as a list of string
    @return the lines of the file
+   @author Philipp
 */
 public int countLinesTotal(list[str] file){    
     return size(file);
 }
 
-/* Method to count the comment of a file 
+/* Method to count the comments of a file 
    @param file the file as a list of string
-   @return the comment lines of a file  \/\*[^/*]*(?:(?!\/\*|\*\/)[/*][^/*]*)*\*\/   http://regexpal.com/
+   @return the comments of a file
+   @author Philipp 
 */
 public int countComment(list[str] file){	
   n = 0;
@@ -23,7 +25,24 @@ public int countComment(list[str] file){
   return n;
 }
 
-// 34 Blanc lines need it to be blank but at the moment i get 35
+/* Method to count the comment lines. Comment Lines are { /*,*,/*} 
+   @param file the java file
+   @return number of comment lines
+   @author Philipp
+*/
+public int countCommentLines(list[str] file){
+  n = 0;
+  for(s <- file)
+    if(/(\/\*|\s\*)/ := s)   
+      n +=1;
+  return n;
+}
+
+/* Method to count the blank lines  
+   @param file the java file
+   @return number of blank lines
+   @author Philipp
+*/
 public int countBlankLines(list[str] file){
 	n = 0;
 	println(file);
@@ -33,6 +52,11 @@ public int countBlankLines(list[str] file){
   return n;
 }
 
+/* Method to count the imports 
+   @param file the java file
+   @return number of imports
+   @author Philipp
+*/
 public int countImports(list[str] file){
 	n = 0;
   for(s <- file)
@@ -41,8 +65,13 @@ public int countImports(list[str] file){
   return n;
 }
 
+/* Method to count the code lines  ( is at the moment also counting // that lines ) 
+   @param file the java file
+   @return number of code lines
+   @author Philipp
+*/
 public int countCodeLines(list[str] file){
 	int codeLines = size(file);
-	codeLines = codeLines - (countBlankLines(file) + countComment(file));
+	codeLines = codeLines - (countBlankLines(file) + countCommentLines(file));
 	return codeLines;
 }
