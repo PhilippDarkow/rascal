@@ -2,10 +2,15 @@ module count::CountFunctions
 
 import List;
 import String;
+import ParseTree;
 
-public int countFunction(list[str] file){
-
+public int countMethods(loc file){
+  int n = 0;
+  for(/MethodDeclaration md <- parse(#CompilationUnit, file))
+      n += 1;
+  return n;
 }
+
 
 /* Method to get the amount of public functions of a file
    @return int the number of void functions

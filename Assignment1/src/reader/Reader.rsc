@@ -8,6 +8,10 @@ import lang::java::jdt::JavaADT;
 import analysis::graphs::Graph;
 import Set;
 
+
+
+public alias BindingRel = rel[loc, Entity];
+
 /* Method to read a file
    example readProjectFileOneString(|file://C:/Users/../workspace/SmallSQL/src/smallsql/database/Column.java|);
    @return the file as one string
@@ -70,4 +74,25 @@ public Resource getFilesOfProject(loc project){
 
 public set[loc] getAllProjects(){
   return projects();
+}
+
+public void showMethodDeclsForFile(Resource file){
+
+    methodDeclarations = file@file;
+    methodLocations = domain(methodDeclarations); // I am only interested in the locations
+
+    for(methodLocation <- methodLocations){
+        println(" methodLocation: " + methodLocation );
+    }
+}
+
+public EntityRel getSubTypeInformation(loc project){
+    fm = extractProject(project);
+    return fm@extends + fm@implements;
+}
+
+public BindingRel getOtherStuff(loc project){
+     fm = extractProject(project);
+     BindingRel a = {<project, fm@implements>}; 
+     return a; // fm + fm@methodDecls;
 }
