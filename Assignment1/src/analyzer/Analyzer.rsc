@@ -8,11 +8,16 @@ import count::CountFunctions;
 import count::CountIf;
 import count::CountLines;
 import count::CountLoops;
+import count::CountProjects;
 
 public void main(loc file){
 	// Step 1 : We need to read the project with the reader
 	str project = readProjectFileOneString(file);
-	list[str] projectArray = readProjectFileAsArray(file); 	
+	list[str] projectArray = readProjectFileAsArray(file);
+	set[loc] workspaceProjects = getAllProjects();
+	// Step 2 : Count Projects
+	println("Eclipse workspace contains : <countProjectsInWorkspace(workspaceProjects)> projects");	
+	//println(printNamesOfProjects(workspaceProjects));	
 	// Step 2 : Counting the lines of code
 	println("Lines in file total: <countLinesTotal(projectArray)>");
 	println("Comment Lines in file total: <countCommentLines(projectArray)>");

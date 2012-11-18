@@ -45,7 +45,6 @@ public int countCommentLines(list[str] file){
 */
 public int countBlankLines(list[str] file){
 	n = 0;
-	println(file);
   for(s <- file)
     if(/^[ \t\r\n]*$/ := s)  // http://generally.wordpress.com/2010/09/23/regular-expression-for-a-line-with-only-white-spaces/
       n +=1;

@@ -55,7 +55,9 @@ public AstNode giveFileAsTree(loc file){
 public Resource getFilesOfProject(loc project){
 	Resource check = getProject(project);
 	Resource result;
-	println(check);
+	//println(extractResource(check));
+	println(check.file(1));
+	//return(extractResource(check));
 	//value bla = check[1];
 	//println(check);
 	// n = 0;
@@ -64,4 +66,8 @@ public Resource getFilesOfProject(loc project){
   // if(/file/ := s)
   //   println(s); //result += s;
    return result;
+}
+
+public set[loc] getAllProjects(){
+  return projects();
 }
