@@ -53,12 +53,12 @@ public AstNode giveFileAsTree(loc file){
    @param project the location of the project   --> I need to make a node type and to search the tree for that node that contain "file"
 */
 public Resource getFilesOfProject(loc project){
-	Resource check = extractProject(project);
+	Resource check = getProject(project);
 	Resource result;
-	//println(check[1]);
-	value bla = check[1];
 	println(check);
-	 n = 0;
+	//value bla = check[1];
+	//println(check);
+	// n = 0;
   //for(s <- check) // check is a set of resource set[Resource]   
   //println(s);
   // if(/file/ := s)
