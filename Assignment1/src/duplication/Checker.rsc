@@ -1,7 +1,8 @@
 module duplication::Checker
 
-/* Method to check a file for code duplication
+/* Method to check files for code duplication
+*  if 6 blocks identical it is a code duplication
 */
-public void checkCodeDuplication(list[str] file){
+public void checkCodeDuplicationFiles(list[str] file, list[str] file){
 
 }

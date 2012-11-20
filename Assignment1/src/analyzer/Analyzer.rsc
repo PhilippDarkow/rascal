@@ -10,39 +10,47 @@ import count::CountLines;
 import count::CountLoops;
 import count::CountProjects;
 import Set;
+import List;
 
 // main(|file://C:/Users/Philipp/Desktop/uni/SoftwareEvolution/workspace/SmallSQL|);
 public void main(loc file){
 	// Step 1 : We need to read the project with the reader
-	list[str] projectArray = readProjectFileAsArray(file);
+	//list[str] projectArray = readProjectFileAsArray(file);   // create a arraz of the file 
+	set[loc] workspaceProjects = getAllProjects();           // get all the Projects in the current workspace
 	
-	set[loc] workspaceProjects = getAllProjects();
-	workspaceList = toList(workspaceProjects);
-	println(workspaceList[0]);
+	workspaceList = toList(workspaceProjects);               // make the workspace to a list
 	// Step 2 : Count Projects
 	println("Eclipse workspace contains : <countProjectsInWorkspace(workspaceProjects)> projects");	
 	//println(printNamesOfProjects(workspaceProjects));	
+	println("Scan project : <workspaceList[0]>");
 	// Step 3 : counting the classes & packages
-	println("<countJavaClasses(workspaceList[0])> classes are in the project");
+	list[loc] javaClasses = countJavaClasses(workspaceList[0]);
+	println("<size(javaClasses)> classes are in the project");
+	println("Start with class : <javaClasses[0]>");
+	for(int i <- [0..(size(javaClasses) - 1)]){ 
+		println("Java class name : <javaClasses[i]>");   // i need to cut the optional part of the location
+		list[str] fileToRead = readProjectFileAsArray(javaClasses[i]);
+		
+		
 	// Step 4 : Counting the lines of code
-	println("Lines in file total: <countLinesTotal(projectArray)>");
-	println("Comment Lines in file total: <countCommentLines(projectArray)>");
-	println("Blank Lines in file total: <countBlankLines(projectArray)>");
-	println("Code Lines in file total: <countCodeLines(projectArray)>");
+	println("Lines in file total: <countLinesTotal(fileToRead)>");   
+	println("Comment Lines in file total: <countCommentLines(fileToRead)>");
+	println("Blank Lines in file total: <countBlankLines(fileToRead)>");
+	println("Code Lines in file total: <countCodeLines(fileToRead)>");
 	// Step 5 : Counting the If statements
-	println("If statements in the file: <countIfs(projectArray)>");
+	println("If statements in the file: <countIfs(fileToRead)>");
 	// Step 4 : Counting for and while loops
-	println("For loops in the file: <countTotalFors(projectArray)>");
-	println("While loops in the file: <countWhiles(projectArray)>");
-	println("Total loops in the file: <countLoops(projectArray)>");
+	println("For loops in the file: <countTotalFors(fileToRead)>");
+	println("While loops in the file: <countWhiles(fileToRead)>");
+	println("Total loops in the file: <countLoops(fileToRead)>");
 	// Step 5 : counting the function
-	println("Void functions in the file: <countVoidFunctions(projectArray)>");
-	println("Int functions in the file: <countVoidFunctions(projectArray)>");
-	println("Boolean functions in the file: <countBooleanFunctions(projectArray)>");
-	println("String functions in the file: <countStringFunctions(projectArray)>");
-	println("Special functions in the file: <countSpecialFunctions(projectArray)>");
-	println("Total functions in the file: <countTotalFunctions(projectArray)>");
-	
+	println("Void functions in the file: <countVoidFunctions(fileToRead)>");
+	println("Int functions in the file: <countVoidFunctions(fileToRead)>");
+	println("Boolean functions in the file: <countBooleanFunctions(fileToRead)>");
+	println("String functions in the file: <countStringFunctions(fileToRead)>");
+	println("Special functions in the file: <countSpecialFunctions(fileToRead)>");
+	println("Total functions in the file: <countTotalFunctions(fileToRead)>");
+	}
 	// Step 7 : checking code duplication
 }
 
