@@ -50,11 +50,19 @@ public void main(loc file){
 	println("Total functions in the file: <countTotalFunctionsClass(fileToRead)>");
 	}
 	
+	println("------ PRINT LINES -------");
 	println("Total Blank lines in project : <countBlankLinesProject(javaClasses)>");
 	println("Total Comment lines in project: <countCommentLinesProject(javaClasses)>");
 	println("Total Code lines in project : <countCodeLinesProject(javaClasses)>");
 	println("Total lines in project : <countLinesTotalProject(javaClasses)>");
-	// Step 7 : checking code duplication
+	println("------ PRINT FUNCTIONS -------");
+	println("Total Int functions in project : <countIntFunctionsProject(javaClasses)>");
+	println("Total Boolean functions in project : <countBooleanFunctionsProject(javaClasses)>");
+	println("Total String functions in project : <countStringFunctionsProject(javaClasses)>");
+	println("Total Void functions in project : <countVoidFunctionsProject(javaClasses)>");
+	println("Total Functions in project : <countTotalFunctionsProject(javaClasses)>");
+	// Step 7 : checking code duplication  
+	
 }
 
 

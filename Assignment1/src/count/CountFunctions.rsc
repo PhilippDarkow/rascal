@@ -2,7 +2,7 @@ module count::CountFunctions
 
 import List;
 import String;
-import ParseTree;
+import reader::Reader;
 
 public int countMethods(loc file){
   int n = 0;
@@ -43,6 +43,21 @@ public int countVoidFunctions(list[str] file){
   return n;
 }
 
+/* Method to count all int functions of a project
+   @param project a list of location from the classes of the project
+   @return n the amount of int functions
+   @author Philipp
+*/
+public int countVoidFunctionsProject(list[loc] project){
+	n = 0;
+	for(s <- project){
+		file = readProjectFileAsArray(s.top);
+		lines = countVoidFunctions(file);
+		n += lines;
+	}
+	return n;
+}
+
 /* Method to get the amount of int functions of a file
    @return int the number of int functions
    @author Philipp
@@ -53,6 +68,21 @@ n = 0;
     if(/int\s[a-z,A-Z]*\(\)|int\s[a-z,A-Z]*\([A-Z,a-z]*/ := s) 
       n +=1;
   return n; 
+}
+
+/* Method to count all int functions of a project
+   @param project a list of location from the classes of the project
+   @return n the amount of int functions
+   @author Philipp
+*/
+public int countIntFunctionsProject(list[loc] project){
+	n = 0;
+	for(s <- project){
+		file = readProjectFileAsArray(s.top);
+		lines = countIntFunctions(file);
+		n += lines;
+	}
+	return n;
 }
 
 /* Method to get the amount of boolean functions of a file
@@ -67,6 +97,21 @@ n = 0;
   return n; 
 }
 
+/* Method to count all boolean functions of a project
+   @param project a list of location from the classes of the project
+   @return n the amount of boolean functions
+   @author Philipp
+*/
+public int countBooleanFunctionsProject(list[loc] project){
+	n = 0;
+	for(s <- project){
+		file = readProjectFileAsArray(s.top);
+		lines = countBooleanFunctions(file);
+		n += lines;
+	}
+	return n;
+}
+
 /* Method to get the amount of String functions of a file
    @return int the number of String functions
    @author Philipp
@@ -78,6 +123,22 @@ n = 0;
       n +=1;
   return n; 
 }
+
+/* Method to count all String functions of a project
+   @param project a list of location from the classes of the project
+   @return n the amount of String functions
+   @author Philipp
+*/
+public int countStringFunctionsProject(list[loc] project){
+	n = 0;
+	for(s <- project){
+		file = readProjectFileAsArray(s.top);
+		lines = countStringFunctions(file);
+		n += lines;
+	}
+	return n;
+}
+
 
 /* The method counts the methods with are not have an standart java return typ ) is it the moment not complete down )
    @return int the number of functions
@@ -105,8 +166,12 @@ public int countTotalFunctionsClass(list[str] file){
    @return functions the amount of functions in the project
    @author Philipp
 */
-public int countTotalFunctionsProject(){
-	return 0;
+public int countTotalFunctionsProject(list[loc] project){
+	functions = countVoidFunctionsProject(project);
+	functions += countIntFunctionsProject(project);
+	functions += countBooleanFunctionsProject(project);
+	functions += countStringFunctionsProject(project);
+	return functions;
 }
 
 
