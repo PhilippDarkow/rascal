@@ -39,7 +39,7 @@ public void main(loc file){
 	println("If statements in the file: <countIfs(fileToRead)>");
 	// Step 4 : Counting for and while loops
 	println("For loops in the file: <countTotalFors(fileToRead)>");
-	println("While loops in the file: <countWhiles(fileToRead)>");
+	println("While loops in the file: <countTotalWhiles(fileToRead)>");
 	println("Total loops in the file: <countLoops(fileToRead)>");
 	// Step 5 : counting the function
 	println("Void functions in the file: <countVoidFunctions(fileToRead)>");
@@ -61,6 +61,12 @@ public void main(loc file){
 	println("Total String functions in project : <countStringFunctionsProject(javaClasses)>");
 	println("Total Void functions in project : <countVoidFunctionsProject(javaClasses)>");
 	println("Total Functions in project : <countTotalFunctionsProject(javaClasses)>");
+	println("------ PRINT LOOPS -------");
+	println("Total For loops in project : <countForLoopsProject(javaClasses)>");
+	println("Total While loops in project : <countWhileLoopsProject(javaClasses)>");
+	println("Total Loops in project : <countTotalLoopsProject(javaClasses)>");
+	println("------ PRINT IFS -------");
+	println("Total Ifs in project : <countIfsProject(javaClasses)>");
 	// Step 7 : checking code duplication  
 	
 }
