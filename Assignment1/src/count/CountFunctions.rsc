@@ -86,7 +86,14 @@ n = 0;
   return n; 
 }
 
-public int countTotalFunctions(list[str] file){
+public int countTotalFunctionsClass(list[str] file){
     int functions = countVoidFunctions(file) + countIntFunctions(file) + countBooleanFunctions(file) + countStringFunctions(file) + countSpecialFunctions(file);
 	return functions;
 }
+
+
+public int countTotalFunctionsProject(){
+	return 0;
+}
+
+

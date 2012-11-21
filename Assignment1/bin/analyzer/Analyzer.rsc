@@ -49,7 +49,7 @@ public void main(loc file){
 	println("Boolean functions in the file: <countBooleanFunctions(fileToRead)>");
 	println("String functions in the file: <countStringFunctions(fileToRead)>");
 	println("Special functions in the file: <countSpecialFunctions(fileToRead)>");
-	println("Total functions in the file: <countTotalFunctions(fileToRead)>");
+	println("Total functions in the file: <countTotalFunctionsClass(fileToRead)>");
 	}
 	// Step 7 : checking code duplication
 }

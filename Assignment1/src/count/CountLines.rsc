@@ -33,7 +33,7 @@ public int countComment(list[str] file){
 public int countCommentLines(list[str] file){
   n = 0;
   for(s <- file)
-    if(/\s(\/\*|\s\*)/ := s)   
+    if(/((\s|\/*)(\/\*|\s\*)|[^\w,\;]\s\/*\/)/ := s)    // first version: \s(\/\*|\s\*) 2nd version:
       n +=1;
   return n;
 }
