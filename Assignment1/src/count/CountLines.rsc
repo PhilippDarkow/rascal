@@ -2,6 +2,7 @@ module count::CountLines
 
 import IO;
 import List;
+import reader::Reader;
 
 /* Method to count the total lines of a file 
    @param file the file as a list of string
@@ -12,10 +13,16 @@ public int countLinesTotal(list[str] file){
     return size(file);
 }
 
-public int countLinesTotalProject(list[str] file){
-	for(s <- project){
-		return 0;
-	}
+/* Method to count all lines of a project
+   @param project a list of location from the classes of the project
+   @return lines the amount of all lines
+   @author Philipp
+*/
+public int countLinesTotalProject(list[loc] project){
+	int lines = countCommentLinesProject(project);
+	lines += countBlankLinesProject(project);
+	lines += countCodeLinesProject(project);
+	return lines;
 }
 
 /* Method to count the comments of a file 
@@ -44,11 +51,19 @@ public int countCommentLines(list[str] file){
   return n;
 }
 
-
-public int countCommentLinesProject(list[str] project){
+/* Method to count all comment lines of a project
+   @param project a list of location from the classes of the project
+   @return n the amount of all comment lines
+   @author Philipp
+*/
+public int countCommentLinesProject(list[loc] project){
+	n = 0;
 	for(s <- project){
-		return 0;
-	}	
+		file = readProjectFileAsArray(s.top);
+		lines = countCommentLines(file);
+		n += lines;
+	}
+	return n;	
 }
 
 /* Method to count the blank lines  
@@ -64,8 +79,19 @@ public int countBlankLines(list[str] file){
   return n;
 }
 
+/* Method to count all blank lines of a project
+   @param project a list of location from the classes of the project
+   @return n the amount of all blank lines
+   @author Philipp
+*/
 public int countBlankLinesProject(list[loc] project){
-
+	n = 0;
+	for(s <- project){
+		file = readProjectFileAsArray(s.top);
+		lines = countBlankLines(file);
+		n += lines;
+	}
+	return n;
 }
 
 /* Method to count the imports 
@@ -93,8 +119,16 @@ public int countCodeLines(list[str] file){
 }
 
 /* Method to count all code lines of a project
+   @param project a list of location from the classes of the project
+   @return n the amount of all code lines
    @author Philipp
 */
-public int countAllCodeLines(list[str] file){
-	
+public int countCodeLinesProject(list[loc] project){
+	n = 0;
+	for(s <- project){
+		file = readProjectFileAsArray(s.top);
+		lines = countCodeLines(file);
+		n += lines;
+	}
+	return n;	
 }

@@ -49,6 +49,11 @@ public void main(loc file){
 	println("Special functions in the file: <countSpecialFunctions(fileToRead)>");
 	println("Total functions in the file: <countTotalFunctionsClass(fileToRead)>");
 	}
+	
+	println("Total Blank lines in project : <countBlankLinesProject(javaClasses)>");
+	println("Total Comment lines in project: <countCommentLinesProject(javaClasses)>");
+	println("Total Code lines in project : <countCodeLinesProject(javaClasses)>");
+	println("Total lines in project : <countLinesTotalProject(javaClasses)>");
 	// Step 7 : checking code duplication
 }
 
