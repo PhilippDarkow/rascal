@@ -14,14 +14,12 @@ import List;
 
 // main(|file://C:/Users/Philipp/Desktop/uni/SoftwareEvolution/workspace/SmallSQL|);
 public void main(loc file){
-	// Step 1 : We need to read the project with the reader
-	//list[str] projectArray = readProjectFileAsArray(file);   // create a arraz of the file 
+	// Step 1 : We need to read the project with the reader 
 	set[loc] workspaceProjects = getAllProjects();           // get all the Projects in the current workspace
 	
 	workspaceList = toList(workspaceProjects);               // make the workspace to a list
 	// Step 2 : Count Projects
-	println("Eclipse workspace contains : <countProjectsInWorkspace(workspaceProjects)> projects");	
-	//println(printNamesOfProjects(workspaceProjects));	
+	println("Eclipse workspace contains : <countProjectsInWorkspace(workspaceProjects)> projects");		
 	println("Scan project : <workspaceList[0]>");
 	// Step 3 : counting the classes & packages
 	list[loc] javaClasses = countJavaClasses(workspaceList[0]);

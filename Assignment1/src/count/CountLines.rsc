@@ -93,7 +93,7 @@ public int countCodeLines(list[str] file){
 }
 
 /* Method to count all code lines of a project
-   
+   @author Philipp
 */
 public int countAllCodeLines(list[str] file){
 	
