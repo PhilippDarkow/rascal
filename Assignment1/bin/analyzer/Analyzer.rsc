@@ -28,8 +28,8 @@ public void main(loc file){
 	println("<size(javaClasses)> classes are in the project");
 	println("Start with class : <javaClasses[0]>");
 	for(int i <- [0..(size(javaClasses) - 1)]){ 
-		println("Java class name : <javaClasses[i]>");   // i need to cut the optional part of the location
-		list[str] fileToRead = readProjectFileAsArray(javaClasses[i]);
+		println("Java class name : <javaClasses[i].top>");   // i need to cut the optional part of the location
+		list[str] fileToRead = readProjectFileAsArray(javaClasses[i].top);
 		
 		
 	// Step 4 : Counting the lines of code

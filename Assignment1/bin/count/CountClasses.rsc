@@ -18,25 +18,16 @@ public int countClasses(loc project){
 	return size(classSet);
 }
 
-// size(classList)
+/* Method to count the classes in a project
+   @param project the project location
+*/
 public list[loc] countJavaClasses(loc project){
 	check = extProject(project);	
 	classes = check@packages;
 	classSet = domain(classes);
 	classList = toList(classSet);
 	for(s <- classList){ 
-		if(/\|\w*\:\/*[\w,\/]*\.java\|/ := s.uri)
-		println("Java class name : <s>");  
-	}	
-	// regular expression to get just the classes without the extension \|\w*\:\/*[\w,\/]*\.java\|
-	// int i <- [0..(size(classList) - 1)]
-	// println("Java class name : <classList[i]>"); 
+		println("Java class name : <s.top>");
+	}
 	return classList;
-}
-
-
-public Resource countJavaClassesWithGetProject(loc project){
-	javaProject = getProject(project);
-	//javaClasses = javaProject@classes;
-	return javaProject;
 }

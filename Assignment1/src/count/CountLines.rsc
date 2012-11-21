@@ -33,7 +33,7 @@ public int countComment(list[str] file){
 public int countCommentLines(list[str] file){
   n = 0;
   for(s <- file)
-    if(/(\/\*|\s\*)/ := s)   
+    if(/\s(\/\*|\s\*)/ := s)   
       n +=1;
   return n;
 }
@@ -73,4 +73,11 @@ public int countCodeLines(list[str] file){
 	int codeLines = size(file);
 	codeLines = codeLines - (countBlankLines(file) + countCommentLines(file));
 	return codeLines;
+}
+
+/* Method to count all code lines of a project
+   
+*/
+public int countAllCodeLines(list[str] file){
+
 }
