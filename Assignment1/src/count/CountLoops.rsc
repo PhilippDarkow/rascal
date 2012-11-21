@@ -8,12 +8,12 @@ import reader::Reader;
    build in that format for(int i=
    @param file the file to read
    @return int the total number of for loops 
-   @author Philipp
+   @author Philipp  
 */
 public int countTotalFors(list[str] file){
 	n = 0;
   for(s <- file)
-    if(/for\(int\s[a-z]*\=/ := s) 
+    if(/for\((int\s[\w]*(\=|\s\=)|;)/ := s)   // 1 version: for\(int\s[a-z]*\=     2 version : for\(int\s[\w]*(\=|\s\=)
       n +=1;
   return n;	
 }
