@@ -20,6 +20,7 @@ public int countClasses(loc project){
 
 /* Method to count the classes in a project
    @param project the project location
+   @author Philipp
 */
 public list[loc] countJavaClasses(loc project){
 	check = extProject(project);	

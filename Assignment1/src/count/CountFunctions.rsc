@@ -33,6 +33,7 @@ public int countProtectedFunctions(list[str] file){
 
 /* Method to get the amount of void functions of a file
    @return int the number of void functions
+   @author Philipp
 */
 public int countVoidFunctions(list[str] file){
 	n = 0;
@@ -44,6 +45,7 @@ public int countVoidFunctions(list[str] file){
 
 /* Method to get the amount of int functions of a file
    @return int the number of int functions
+   @author Philipp
 */
 public int countIntFunctions(list[str] file){
 n = 0;
@@ -55,6 +57,7 @@ n = 0;
 
 /* Method to get the amount of boolean functions of a file
    @return int the number of boolean functions
+   @author Philipp
 */
 public int countBooleanFunctions(list[str] file){
 n = 0;
@@ -66,6 +69,7 @@ n = 0;
 
 /* Method to get the amount of String functions of a file
    @return int the number of String functions
+   @author Philipp
 */
 public int countStringFunctions(list[str] file){
 n = 0;
@@ -77,6 +81,7 @@ n = 0;
 
 /* The method counts the methods with are not have an standart java return typ ) is it the moment not complete down )
    @return int the number of functions
+   @author Philipp
 */
 public int countSpecialFunctions(list[str] file){
 n = 0;
@@ -86,12 +91,20 @@ n = 0;
   return n; 
 }
 
+/* Method to count the total function of a file
+   @param file the file to count
+   @return functions the amount of functions in the file
+   @author Philipp
+*/
 public int countTotalFunctionsClass(list[str] file){
     int functions = countVoidFunctions(file) + countIntFunctions(file) + countBooleanFunctions(file) + countStringFunctions(file) + countSpecialFunctions(file);
 	return functions;
 }
 
-
+/* Method to count the total functions of a project
+   @return functions the amount of functions in the project
+   @author Philipp
+*/
 public int countTotalFunctionsProject(){
 	return 0;
 }

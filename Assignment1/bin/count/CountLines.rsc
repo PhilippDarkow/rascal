@@ -12,6 +12,12 @@ public int countLinesTotal(list[str] file){
     return size(file);
 }
 
+public int countLinesTotalProject(list[str] file){
+	for(s <- project){
+		return 0;
+	}
+}
+
 /* Method to count the comments of a file 
    @param file the file as a list of string
    @return the comments of a file
@@ -33,9 +39,16 @@ public int countComment(list[str] file){
 public int countCommentLines(list[str] file){
   n = 0;
   for(s <- file)
-    if(/((\s|\/*)(\/\*|[^\w]\s\*)|[^\w,\;]\s\/*\/)/ := s)    // first version: \s(\/\*|\s\*) 2nd version: ((\s|\/*)(\/\*|\s\*)|[^\w,\;]\s\/*\/) 
+    if(/((\s|\/*)(\/\*|\s\*)|[^\w,\;]\s\/*\/)/ := s)    // first version: \s(\/\*|\s\*) 2nd version: ((\s|\/*)(\/\*|\s\*)|[^\w,\;]\s\/*\/) 
       n +=1;
   return n;
+}
+
+
+public int countCommentLinesProject(list[str] project){
+	for(s <- project){
+		return 0;
+	}	
 }
 
 /* Method to count the blank lines  
@@ -49,6 +62,10 @@ public int countBlankLines(list[str] file){
     if(/^[ \t\r\n]*$/ := s)  // http://generally.wordpress.com/2010/09/23/regular-expression-for-a-line-with-only-white-spaces/
       n +=1;
   return n;
+}
+
+public int countBlankLinesProject(list[loc] project){
+
 }
 
 /* Method to count the imports 
@@ -79,5 +96,5 @@ public int countCodeLines(list[str] file){
    
 */
 public int countAllCodeLines(list[str] file){
-
+	
 }
