@@ -50,7 +50,7 @@ public int countInnerFors(list[str] file){
 public int countTotalWhiles(list[str] file){
 n = 0;
   for(s <- file)
-    if(/while\(([\w]*\.[\w]*\(\)|true|\w*\(\)|\w*[\>,\=,\<]*)(\)\{|)/ := s)  // 1 version: while\([A-Z,a-z]*\.[A-Z,a-z]*\(\)\)\{  2 version : while\(([\w]*\.[\w]*\(\)|true)\)\{  
+    if(/\swhile\(([\w]*\.[\w]*\(\)|true|\w*\(\)|\w*[\>,\=,\<]*)(\)\{|)/ := s)  // 1 version: while\([A-Z,a-z]*\.[A-Z,a-z]*\(\)\)\{  2 version : while\(([\w]*\.[\w]*\(\)|true)\)\{  
       n +=1;											  // 3 version while\(([\w]*\.[\w]*\(\)|true|\w*\(\))\)\{  
   return n; 
 }
@@ -70,6 +70,29 @@ public int countWhileLoopsProject(list[loc] project){
 	return n;
 }
 
+public int countDoWhileLoops(list[str] file){
+n = 0;
+  for(s <- file)
+    if(/do\{/ := s)  
+      n +=1;											 
+  return n; 
+}
+
+/* Method to count all while loops of a project
+   @param project a list of location from the classes of the project
+   @return n the amount of while loops
+   @author Philipp
+*/
+public int countDoWhileLoopsProject(list[loc] project){
+	n = 0;
+	for(s <- project){
+		file = readProjectFileAsArray(s.top);
+		loops = countDoWhileLoops(file);
+		n += loops;
+	}
+	return n;
+}
+
 /* Method to count the total loops in a file.
    @return int the total number of for loops 
    @param file the file to read
@@ -81,7 +104,7 @@ public int countLoops(list[str] file){
 }
 
 public int countTotalLoopsProject(list[loc] project){
-	loops = countForLoopsProject(project) + countWhileLoopsProject(project);
+	loops = countForLoopsProject(project) + countWhileLoopsProject(project) + countDoWhileLoopsProject(project);
 	return loops;
 }
 

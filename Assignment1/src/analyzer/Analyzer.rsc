@@ -64,6 +64,7 @@ public void main(loc file){
 	println("------ PRINT LOOPS -------");
 	println("Total For loops in project : <countForLoopsProject(javaClasses)>");
 	println("Total While loops in project : <countWhileLoopsProject(javaClasses)>");
+	println("Total Do While loops in project : <countDoWhileLoopsProject(javaClasses)>");
 	println("Total Loops in project : <countTotalLoopsProject(javaClasses)>");
 	println("------ PRINT IFS -------");
 	println("Total Ifs in project : <countIfsProject(javaClasses)>");
