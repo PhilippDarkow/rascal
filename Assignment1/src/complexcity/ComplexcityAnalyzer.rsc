@@ -30,7 +30,10 @@ public AstNodeRel getAstNodeRelationFile(loc project){
 
 public void scanProjectComplexity(list[loc] file){
 	for(s <- file){
-		println(s);
+		println("visiting loc <s.top>");
+		AstNode class = makeAnAstnode(s.top);
+		visitMethodsNotesOfFile(class);
+		println("--------------------------");
 	}
 }
 
@@ -107,7 +110,6 @@ public void visitMethodsNotesOfFile(AstNode classNode){
      }
      case ifStatement(AstNode booleanExpression, AstNode thenStatement, Option[AstNode] elseStatement) :{ 
      	countIfs += 1;
-     	println("if statement");
      }
      case switchStatement(AstNode expression, list[AstNode] statements) : {
      	println("switch Statement");

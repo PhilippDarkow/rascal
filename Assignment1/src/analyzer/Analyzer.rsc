@@ -71,9 +71,9 @@ public void main(loc file){
 	println("Total Ifs in project : <countIfsProject(javaClasses)>");
 	// Step 7 : checking code duplication  
 	
-	// Step 9 : checking complexcity --> not complete at the moment
-	
-	// Step 8 : show Unit size
+	// Step 8 : checking complexcity --> not complete at the moment
+	scanProjectComplexity(javaClasses);
+	// Step 9 : show Unit size
 	println("------ UNIT SIZE -------");
 	println("Unit Size measuring with Lines of codes : <countLinesTotalProject(javaClasses)>");
 }
