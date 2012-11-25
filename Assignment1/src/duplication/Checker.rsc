@@ -38,8 +38,7 @@ public list[str] removeWhiteLinesFromFile(list[str] file){
   list[str] fileWithoutWhiteLines = [];
   for(int i <- [0..(size(file) - 1)]){
       if(/^[ \t\r\n]*$/ := file[i]){
-          println("WhiteLine");
-      	  // fileWithoutWhiteLines =delete(file, i);
+          print("");
        } else {
        	  fileWithoutWhiteLines += file[i] ;       	 
        }       
@@ -51,7 +50,7 @@ public list[str] removeCommentsFromFile(list[str] file){
   list[str] fileWithoutWhiteLines = [];
   for(int i <- [0..(size(file) - 1)]){
       if(/((\s|\/*)(\/\*|\s\*)|[^\w,\;]\s\/*\/)/ := file[i]){
-          println("Comment");
+          print("");
       	  // fileWithoutWhiteLines =delete(file, i);
        } else {
        	  fileWithoutWhiteLines += file[i] ;       	 

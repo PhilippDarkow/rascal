@@ -8,6 +8,7 @@ import lang::java::jdt::JavaADT;
 import analysis::graphs::Graph;
 import Prelude;
 import Set;
+import Map;
 
 
 /* Method to read a file
@@ -60,7 +61,15 @@ public AstNode giveFileAsTree(loc file){
 */
 public BindingRel getFilesOfProject(loc project){
    check = extProject(project);	
-   return check@packages;
+   methods = check@methods;
+   println(methods);
+   methodsSet = domain(methods);
+	methodsList = toList(methodsSet);
+	//for(s <- methodsList){ 
+	//	println("Java Method name : <s>");
+	//}
+	return classList;
+   return check@methods;
 }
 
 /* Method to get all projects which are in the current workspace
@@ -70,26 +79,42 @@ public set[loc] getAllProjects(){
   return projects();
 }
 
-public void showMethodDeclsForFile(Resource file){
-
-    methodDeclarations = file@file;
-    methodLocations = domain(methodDeclarations); // I am only interested in the locations
+public list[Id] showMethodDeclsForFile(loc file){
+	list[Id] methods = [];
+	check = extProject(file);
+    methodDeclarations = check@methodDecls;
+    methodLocations = range(methodDeclarations); // I am only interested in the locations
 
     for(methodLocation <- methodLocations){
-        println(" methodLocation: " + methodLocation );
+        println("hha :  <methodLocation.id>");
+        
+        methods += methodLocation.id[3];
     }
+    return methods;
 }
 
-public EntityRel getSubTypeInformation(loc project){
+public set[Entity] getSubTypeInformation(loc project){ //EntityRel
     fm = extractProject(project);
-    return fm@extends + fm@implements;
+    k = fm@declaredMethods;
+    
+    println(range(k));
+    //return fm@declaredMethods;
+    return range(k);
 }
 
-
-public void countMethods(loc project){
+/* Function to count the methods of a the project per java class
+   @param project the project location
+   @return methodMap a map that links a java file to the amount of functions
+   @author Philipp
+*/
+public map[str, int] countMethods(loc project){	
+	map[str, int] methodMap = ();
 	facts = extractProject(project);
 	classes = {c | c:entity([_*,class(_)]) <- facts@declaredTopTypes};
 	methods = (e : size((facts@declaredMethods)[e]) | e <- classes);
-	for(m <- methods)
-		println("<readable(m)> : <methods[m]>");
+	for(m <- methods){
+		//println("<readable(m)> : <methods[m]>");
+		methodMap += (readable(m) : methods[m]);
+		}
+	return methodMap;
 }

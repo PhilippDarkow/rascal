@@ -9,6 +9,7 @@ import count::CountIf;
 import count::CountLines;
 import count::CountLoops;
 import count::CountProjects;
+import complexcity::ComplexcityAnalyzer;
 import Set;
 import List;
 
@@ -69,6 +70,8 @@ public void main(loc file){
 	println("------ PRINT IFS -------");
 	println("Total Ifs in project : <countIfsProject(javaClasses)>");
 	// Step 7 : checking code duplication  
+	
+	// Step 9 : checking complexcity --> not complete at the moment
 	
 	// Step 8 : show Unit size
 	println("------ UNIT SIZE -------");
