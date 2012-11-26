@@ -49,27 +49,6 @@ public AstNode makeAnAstnode(loc file){
 	return createAstFromFile(file);
 }
 
-public void visitSetOfNodes(set[AstNode] setOfNodes){
-	for(s <- setOfNodes){
-		println("----------------------------------------- <s>");
-		visitAstNode(s);
-	}
-}
-
-
-public void visitAstNode(AstNode classNode){
-	visit(classNode) {
-     case importDeclaration(name,staticImport,onDemand) : println("importDeclaration");   // AstNode 
-     case typeDeclaration(list[Modifier] modifiers,list[AstNode] annotations,str objectType,str name,list[AstNode] genericTypes,Option[AstNode] extends,list[AstNode] implements,list[AstNode] bodyDeclarations) : println("typeDeclaration");
-     case methodDeclaration(list[Modifier] modifiers, list[AstNode] annotations, list[AstNode] genericTypes, Option[AstNode] returnType, str name, list[AstNode] parameters, list[AstNode] possibleExceptions, Option[AstNode] implementation) : println("methodDeclaration : <name>");
-     case fieldDeclaration(modifiers,annotations,\type,fragments) : println("fieldDeclaration"); 
-     case constructorInvocation(list[AstNode] genericTypes, list[AstNode] typedArguments) : println("constructorInvocation");
-     case packageDeclaration(str name, list[AstNode] annotations) : println("packageDeclaration : <name>"); 
-     case variableDeclarationFragment(str name, Option[AstNode] initializer) : println("variableDeclarationFragment : <name>"); 
-     case typeParameter(str name, list[AstNode] extendsList) : println("typeParameter : <name>");
-   };
-}
-
 /* Method to count all statements from the methods in a file
    @param classNode the file as a AstNode
    @author Philipp
@@ -121,16 +100,11 @@ public list[int] visitMethodsNotesOfFile(AstNode classNode){
    return [countSimple,countMoreComplex,countComplex,countUntestable];
 }
 
-public void printDetails(str name, int countIfs, int countForStatement, int countWhileStatement, int countSwitchStatement, int countDoStatement, int countSwitchCase){
-	println("methodDeclaration : <name>"); 
-    //println("method has <countIfs> if statements");
-    //println("method has <countForStatement> for statements");
-    //println("method has <countWhileStatement> while statements");
-    //println("method has <countSwitchStatement> switch statements");
-    //println("method has <countDoStatement> do statements");
-    //println("method has <countSwitchCase> switch case statements");
-}
-
+/* Function to calculate the complexcity of a method
+   @param complexityScore the complexity of a method
+   @return int a number to describe how complex it is
+   @author Philipp
+*/
 public int calculateComplexcity(int complexityScore){
 	if(complexityScore <= 10){
 		println("Complexcity is simple");
@@ -145,6 +119,26 @@ public int calculateComplexcity(int complexityScore){
 		println("Complexcity is untestable");
 		return 4;
 	}
+	
+/* Method to print the details of a method
+   @param name the name of the method
+   @param countIfs the counted if statements of a method
+   @param countForStatement the counted for statements of a method
+   @param countWhileStatement the counted while statements of a method
+   @param countSwitchStatement the counted switch statements of a method
+   @param countDoStatement the counted do statements of a method
+   @param countSwitchCase the counted switch case statements of a method
+   @author Philipp
+*/
+public void printDetails(str name, int countIfs, int countForStatement, int countWhileStatement, int countSwitchStatement, int countDoStatement, int countSwitchCase){
+	println("methodDeclaration : <name>"); 
+    //println("method has <countIfs> if statements");
+    //println("method has <countForStatement> for statements");
+    //println("method has <countWhileStatement> while statements");
+    //println("method has <countSwitchStatement> switch statements");
+    //println("method has <countDoStatement> do statements");
+    //println("method has <countSwitchCase> switch case statements");
+}
 
 public void returnOption(Option[Astnode] impl){
 	println("-----------------------------------------");
