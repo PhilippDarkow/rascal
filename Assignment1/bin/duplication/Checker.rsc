@@ -14,52 +14,61 @@ public void checkCodeDuplicationFiles(list[str] file, list[str] file){
 *  if 6 blocks identical it is a code duplication
 */
 public list[str] checkCodeDuplicationInOneFile(list[str] file){
-	println("!!!!!!!");
 	file = removeCommentsAndWhiteLinesFromFile(file);
-	// clone list
-	fileClone = file;
-	// remove first rows of file
-	list[str] compareList = [];
-	for(i <- [0..5]){
-	compareList += file[i];
-		fileClone = delete(fileClone,0);	
-	}
-	// now check six rows of te file clone with the compare list 
+
+	FileList = takeNextLines(file, 0);
+	compareList = FileList[0];
+	codeClone = FileList[1];
+	
 	list[str] lines = [];
-	//for(i <- [0..5]){
-		if(size(compareList) == 6){
-		for(i <- [0..size(fileClone) - 1]){
+		for(i <- [0..size(codeClone) - 1]){
+			println("start loop with i : <i>");
 			if(size(lines) == 6){
 				println("we have 6 rows");
 				if(checkSixRows(compareList, lines)) println("found duplication");
 				else println("no duplication");
 				lines = [];
 			}
-			lines += fileClone[i];
+			lines += codeClone[i];
 		}
-		//}
-		//compareList += file[i];
-		//fileClone = delete(fileClone,0);
-	}
-	return fileClone;
+
+	return codeClone;
 }
 
 /* Method to check six rows from two lists
    @param compareList
    @param lines
+   @return true when the six lines identical
    @author Philipp
 */
 public bool checkSixRows(list[str] compareList,list[str] lines){
 	checkCounter = 0;
 	for(i <- [0..5]){
-		if(compareList[i] == lines[i]){
-			//println("same content");
-			checkCounter += 1;
-		}
-	}
-	
+		if(compareList[i] == lines[i])	checkCounter += 1;
+	}	
 	if(checkCounter == 6) return true;
 	else return false;
+}
+
+/* Method to take the next lines from a list
+   @param file the file to take the six lines
+   @param fileNumber the fileNumber to take lines from 
+   @return list with 6 lines
+   @author Philipp
+*/
+public list[list[str]] takeNextLines(list[str] file, int fileNumber){
+	codeClone = file;
+	compareList = [];
+	for(i <- [0..size(file) - 1]){
+		if(fileNumber == i){
+		for(a <- [0..5]){
+			compareList += file[a];
+			codeClone = delete(codeClone, 0);
+		}
+		return [compareList,codeClone];
+		}
+	}
+	return [[]];
 }
 
 /* Method to remove the Comment and White Lines of a file
