@@ -13,10 +13,47 @@ public void checkCodeDuplicationFiles(list[str] file, list[str] file){
 /* Method to check one file for code duplication
 *  if 6 blocks identical it is a code duplication
 */
-public void checkCodeDuplicationInOneFile(list[str] file){
-
+public list[str] checkCodeDuplicationInOneFile(list[str] file){
+	file = removeCommentsAndWhiteLinesFromFile(file);
+	// clone list
+	fileClone = file;
+	// remove first rows of file
+	list[str] compareList = [];
+	for(i <- [0..5]){
+		compareList += file[i];
+		fileClone = delete(fileClone,0);
+	}
+	// now check six rows of te file clone with the compare list 
+	list[str] lines = [];
+	for(i <- [0..size(fileClone) - 1]){
+		if(size(lines) == 6){
+			println("we have 6 rows");
+			if(checkSixRows(compareList, lines)) println("found duplication");
+			else println("no duplication");
+			lines = [];
+		}
+		lines += fileClone[i];
+	}
+	return fileClone;
 }
 
+/* Method to check six rows from two lists
+   @param compareList
+   @param lines
+   @author Philipp
+*/
+public bool checkSixRows(list[str] compareList,list[str] lines){
+	checkCounter = 0;
+	for(i <- [0..5]){
+		if(compareList[i] == lines[i]){
+			//println("same content");
+			checkCounter += 1;
+		}
+	}
+	
+	if(checkCounter == 6) return true;
+	else return false;
+}
 
 /* Method to remove the Comment and White Lines of a file
    @param file the file where the white lines should get removed
