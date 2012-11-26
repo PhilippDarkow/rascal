@@ -14,25 +14,32 @@ public void checkCodeDuplicationFiles(list[str] file, list[str] file){
 *  if 6 blocks identical it is a code duplication
 */
 public list[str] checkCodeDuplicationInOneFile(list[str] file){
+	println("!!!!!!!");
 	file = removeCommentsAndWhiteLinesFromFile(file);
 	// clone list
 	fileClone = file;
 	// remove first rows of file
 	list[str] compareList = [];
 	for(i <- [0..5]){
-		compareList += file[i];
-		fileClone = delete(fileClone,0);
+	compareList += file[i];
+		fileClone = delete(fileClone,0);	
 	}
 	// now check six rows of te file clone with the compare list 
 	list[str] lines = [];
-	for(i <- [0..size(fileClone) - 1]){
-		if(size(lines) == 6){
-			println("we have 6 rows");
-			if(checkSixRows(compareList, lines)) println("found duplication");
-			else println("no duplication");
-			lines = [];
+	//for(i <- [0..5]){
+		if(size(compareList) == 6){
+		for(i <- [0..size(fileClone) - 1]){
+			if(size(lines) == 6){
+				println("we have 6 rows");
+				if(checkSixRows(compareList, lines)) println("found duplication");
+				else println("no duplication");
+				lines = [];
+			}
+			lines += fileClone[i];
 		}
-		lines += fileClone[i];
+		//}
+		//compareList += file[i];
+		//fileClone = delete(fileClone,0);
 	}
 	return fileClone;
 }
