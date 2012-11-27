@@ -1,3 +1,6 @@
+/* Module to get the complexity of a project
+   
+*/
 module complexcity::ComplexcityAnalyzer
 
 import util::Resources;
@@ -68,14 +71,15 @@ public list[int] visitMethodsNotesOfFile(AstNode classNode){
 	countSwitchCase = 0;
 	visit(classNode) {
      case methodDeclaration(list[Modifier] modifiers, list[AstNode] annotations, list[AstNode] genericTypes, Option[AstNode] returnType, str name, list[AstNode] parameters, list[AstNode] possibleExceptions, Option[AstNode] implementation) :{
-      	if(name != oldName){
-      		printDetails(name, countIfs, countForStatement, countWhileStatement, countSwitchStatement, countDoStatement, countSwitchCase);
+      	if(name != oldName){   
+      		println(name);  		
+      		//printDetails(name, countIfs, countForStatement, countWhileStatement, countSwitchStatement, countDoStatement, countSwitchCase);
       		totalCount = countIfs + countForStatement + countWhileStatement + countSwitchStatement + countDoStatement + countSwitchCase;
       		int complexcity = calculateComplexcity(totalCount);
       		if(complexcity == 1) countSimple += 1;
       		elseif(complexcity == 2) countMoreComplex += 1;
       		elseif(complexcity == 3) countComplex += 1;
-      		elseif(complexcity == 3) countUntestable += 1;
+      		elseif(complexcity == 4) countUntestable += 1;
       		//println("The method has <rowNumbers> lines");
       		println("method end");
       		countIfs = 0;
@@ -86,7 +90,7 @@ public list[int] visitMethodsNotesOfFile(AstNode classNode){
       		countSwitchCase = 0;
       		totalCount = 0;
       	}
-      	//print(implementation);
+      	println(classNode@location);
       	oldName = name;     	     	
      }
      case forStatement(list[AstNode] initializers, Option[AstNode] optionalBooleanExpression, list[AstNode] updaters, AstNode body) : countForStatement += 1;
@@ -108,6 +112,7 @@ public list[int] visitMethodsNotesOfFile(AstNode classNode){
 public int calculateComplexcity(int complexityScore){
 	if(complexityScore <= 10){
 		println("Complexcity is simple");
+		
 		return 1;
 	} elseif(complexityScore >= 11 && complexityScore <= 20) {
 		println("Complexcity is more complex");
@@ -138,13 +143,5 @@ public void printDetails(str name, int countIfs, int countForStatement, int coun
     //println("method has <countSwitchStatement> switch statements");
     //println("method has <countDoStatement> do statements");
     //println("method has <countSwitchCase> switch case statements");
-}
-
-public void returnOption(Option[Astnode] impl){
-	println("-----------------------------------------");
-	println(impl[0]);
-	println(impl[1]);
-	println("-----------------------------------------");
-	//return impl;
 }
 }

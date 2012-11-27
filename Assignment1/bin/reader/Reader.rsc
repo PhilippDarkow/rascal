@@ -1,3 +1,6 @@
+/* Module to read a file or project
+
+*/
 module reader::Reader
 
 import util::Resources;
@@ -11,14 +14,6 @@ import Set;
 import Map;
 
 
-/* Method to read a file
-   @return the file as one string
-   @author Philipp
-*/
-public str readProjectFileOneString(loc file){
-	return readFile(file); // http://tutor.rascal-mpl.org/Rascal/Libraries/Prelude/IO/readFile/readFile.html
-}
-
 /* Method to read the file
    @return the file in an array of string ( each position is one line )
    @author Philipp
@@ -28,48 +23,20 @@ public list[str] readProjectFileAsArray(loc file){
 }
 
 /* Method to read a project
-   http://tutor.rascal-mpl.org/Rascal/Rascal.html#/Rascal/Libraries/lang/java/jdt/JDT/JDT.html
-   http://ask.rascal-mpl.org/question/1105/i-want-to-analyze-a-java-program-how-do-i-start
    @return the project with getProject
    @author Philipp
 */
 public Resource giveProject(loc project){
-	return getProject(project);  // getProject(|project://SmallSQL|);
+	return getProject(project);  
 }
 
+/* Method to extract a project 
+   @param project the project location
+   @return the project as a resource
+   @author Philipp
+*/
 public Resource extProject(loc project){
-   return extractProject(project);  // |project://SmallSQL/src/smallsql|
-}
-// extractClass(|project://SmallSQL/src/smallsql/database/Column.java|);
-
-/* Method to return a Java Project as a Tree
-   @param project the location of the project ( (|project://SmallSQL/src/smallsql|); )
-   @return a set of AstNode with the project structure
-   @author Philipp
-*/
-public set[AstNode] giveProjectAsTree(loc project){
-   return createAstsFromProject(project);
-}
-
-public AstNode giveFileAsTree(loc file){
-   return createAstFromFile(file);
-}
-
-/* Method to get the files of a project
-   @param project the location of the project  
-   @author Philipp
-*/
-public BindingRel getFilesOfProject(loc project){
-   check = extProject(project);	
-   methods = check@methods;
-   println(methods);
-   methodsSet = domain(methods);
-	methodsList = toList(methodsSet);
-	//for(s <- methodsList){ 
-	//	println("Java Method name : <s>");
-	//}
-	return classList;
-   return check@methods;
+   return extractProject(project);  
 }
 
 /* Method to get all projects which are in the current workspace
@@ -77,44 +44,4 @@ public BindingRel getFilesOfProject(loc project){
 */
 public set[loc] getAllProjects(){
   return projects();
-}
-
-public list[Id] showMethodDeclsForFile(loc file){
-	list[Id] methods = [];
-	check = extProject(file);
-    methodDeclarations = check@methodDecls;
-    methodLocations = range(methodDeclarations); // I am only interested in the locations
-
-    for(methodLocation <- methodLocations){
-        println("hha :  <methodLocation.id>");
-        
-        methods += methodLocation.id[3];
-    }
-    return methods;
-}
-
-public set[Entity] getSubTypeInformation(loc project){ //EntityRel
-    fm = extractProject(project);
-    k = fm@declaredMethods;
-    
-    println(range(k));
-    //return fm@declaredMethods;
-    return range(k);
-}
-
-/* Function to count the methods of a the project per java class
-   @param project the project location
-   @return methodMap a map that links a java file to the amount of functions
-   @author Philipp
-*/
-public map[str, int] countMethods(loc project){	
-	map[str, int] methodMap = ();
-	facts = extractProject(project);
-	classes = {c | c:entity([_*,class(_)]) <- facts@declaredTopTypes};
-	methods = (e : size((facts@declaredMethods)[e]) | e <- classes);
-	for(m <- methods){
-		//println("<readable(m)> : <methods[m]>");
-		methodMap += (readable(m) : methods[m]);
-		}
-	return methodMap;
 }

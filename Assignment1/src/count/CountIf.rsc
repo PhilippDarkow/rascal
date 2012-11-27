@@ -1,3 +1,6 @@
+/* Module to count the if statement of a file and in the project
+
+*/
 module count::CountIf
 
 import List;
@@ -6,14 +9,15 @@ import reader::Reader;
 
 /* Method to count the if statement in a file
    @param file the file to count the if statements
-   @return n the amount of if statements   if\(\w*(\)|\w*)(\s|[\,,\s,\.]*)
+   @return n the amount of if statements
+   @author Philipp   
 */ 
 public int countIfs(list[str] file){
-n = 0;
-  for(s <- file)
-    if(/if\(\w*(\)|\w*)(\s|[\,,\s,\.]*)/ := s)          // if\((\w*(\s(\<|\>|\=\=|\&\&|\!\!)\s|\.\w*\((\"\w*\:\"\)|\)))|\w*\)|\w*(\<|\>|\=\=|\&\&|\!\!|\.))  
-      n +=1;
-  return n; 
+	n = 0;
+  	for(s <- file)
+    	if(/if\(\w*(\)|\w*)(\s|[\,,\s,\.]*)/ := s)          
+      		n +=1;
+  	return n; 
 }
 
 /* Method to count all if statements of a project

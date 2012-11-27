@@ -1,3 +1,6 @@
+/* Module to count the projects 
+
+*/
 module count::CountProjects
 
 import Set;
@@ -6,6 +9,7 @@ import util::Resources;
 
 /* Method to get the size of the projects in the current workspace
    @param projects the projects in the workspace
+   @return size(projects) the size of the project
    @author Philipp
 */
 public int countProjectsInWorkspace(set[loc] projects){
@@ -20,4 +24,3 @@ public void printNamesOfProjects(set[loc] projects){
     for(s <- projects)
     	println("Project Name : <s>");
 }
-

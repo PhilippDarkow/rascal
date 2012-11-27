@@ -1,3 +1,6 @@
+/* Module to count the lines of code of the project
+
+*/
 module count::CountLines
 
 import IO;
@@ -33,7 +36,7 @@ public int countLinesTotalProject(list[loc] project){
 public int countComment(list[str] file){	
   n = 0;
   for(s <- file)
-    if(/\*(.|[\r\n])*?\*/ := s)  // find comment 
+    if(/\*(.|[\r\n])*?\*/ := s)  
       n +=1;
   return n;
 }
@@ -46,7 +49,7 @@ public int countComment(list[str] file){
 public int countCommentLines(list[str] file){
   n = 0;
   for(s <- file)
-    if(/((\s|\/*)(\/\*|\s\*)|[^\w,\;]\s\/*\/)/ := s)    // first version: \s(\/\*|\s\*) 2nd version: ((\s|\/*)(\/\*|\s\*)|[^\w,\;]\s\/*\/) 
+    if(/((\s|\/*)(\/\*|\s\*)|[^\w,\;]\s\/*\/)/ := s)   
       n +=1;
   return n;
 }
@@ -74,7 +77,7 @@ public int countCommentLinesProject(list[loc] project){
 public int countBlankLines(list[str] file){
 	n = 0;
   for(s <- file)
-    if(/^[ \t\r\n]*$/ := s)  // http://generally.wordpress.com/2010/09/23/regular-expression-for-a-line-with-only-white-spaces/
+    if(/^[ \t\r\n]*$/ := s)  
       n +=1;
   return n;
 }

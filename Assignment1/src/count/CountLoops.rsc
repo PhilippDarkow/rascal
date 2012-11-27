@@ -1,3 +1,6 @@
+/* Module to count the loops of a file and the project
+
+*/
 module count::CountLoops
 
 import List;
@@ -13,7 +16,7 @@ import reader::Reader;
 public int countTotalFors(list[str] file){
 	n = 0;
   for(s <- file)
-    if(/for\((int\s[\w]*(\=|\s\=)|;)/ := s)   // 1 version: for\(int\s[a-z]*\=     2 version : for\(int\s[\w]*(\=|\s\=)
+    if(/for\((int\s[\w]*(\=|\s\=)|;)/ := s) 
       n +=1;
   return n;	
 }
@@ -32,17 +35,9 @@ public int countForLoopsProject(list[loc] project){
 	}
 	return n;
 }
-
-/* Method to count the total inner for loops in a file.
-   @return int the total number of inner for loops 
-   @param file the file to read
-*/
-public int countInnerFors(list[str] file){
-
-}
   
-/* Method to count the total while loops in a file. Is using a regular expression to find while loops that are
-   build in currently that format while(iterator.hasNext()){
+/* Method to count the total while loops in a file. Is using a regular expression
+   to find while loops that are build in currently that format while(iterator.hasNext()){
    @return int the total number of for loops 
    @param file the file to read
    @author Philipp
@@ -50,8 +45,8 @@ public int countInnerFors(list[str] file){
 public int countTotalWhiles(list[str] file){
 n = 0;
   for(s <- file)
-    if(/\swhile\(([\w]*\.[\w]*\(\)|true|\w*\(\)|\w*[\>,\=,\<]*)(\)\{|)/ := s)  // 1 version: while\([A-Z,a-z]*\.[A-Z,a-z]*\(\)\)\{  2 version : while\(([\w]*\.[\w]*\(\)|true)\)\{  
-      n +=1;											  // 3 version while\(([\w]*\.[\w]*\(\)|true|\w*\(\))\)\{  
+    if(/\swhile\(([\w]*\.[\w]*\(\)|true|\w*\(\)|\w*[\>,\=,\<]*)(\)\{|)/ := s)   
+      n +=1;											 
   return n; 
 }
 
@@ -70,6 +65,11 @@ public int countWhileLoopsProject(list[loc] project){
 	return n;
 }
 
+/* Method to count all do while loops of a file
+   @param file the file to read
+   @return n the amount of do while loops
+   @author Philipp
+*/
 public int countDoWhileLoops(list[str] file){
 n = 0;
   for(s <- file)
@@ -94,7 +94,7 @@ public int countDoWhileLoopsProject(list[loc] project){
 }
 
 /* Method to count the total loops in a file.
-   @return int the total number of for loops 
+   @return int the total number of loops 
    @param file the file to read
    @author Philipp
 */  
@@ -103,8 +103,12 @@ public int countLoops(list[str] file){
 	return loops;
 }
 
+/* Method to count the total loops in a project.
+   @param file the file to read
+   @return int the total number of loops 
+   @author Philipp
+*/ 
 public int countTotalLoopsProject(list[loc] project){
 	loops = countForLoopsProject(project) + countWhileLoopsProject(project) + countDoWhileLoopsProject(project);
 	return loops;
 }
-
