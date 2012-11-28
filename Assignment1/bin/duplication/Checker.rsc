@@ -27,29 +27,43 @@ public void checkCodeDuplicationFiles(list[str] orginalFile, list[str] compareFi
 		
 }
 
+public void duplicationOneFile(list[str] file){
+	for(i <- [0..size(file)- 6 ]){
+	checkCodeDuplicationInOneFile(file, i);
+	}
+}
+
 /* Method to check one file for code duplication  --- NOT COMPLETE NOW
    @param file the file to check for duplication
    @author Philipp
 */
-public void checkCodeDuplicationInOneFile(list[str] file){
+public void checkCodeDuplicationInOneFile(list[str] file, int lineNumber){
+	bool check = true;
 	file = removeCommentsAndWhiteLinesFromFile(file);
-	FileList = takeNextLines(file, 0);
+	FileList = takeNextLines(file, lineNumber);
 	compareList = FileList[0];
 	codeClone = FileList[1];
-	int minus = 0;
 	list[str] lines = [];
-	for(i <- [0..size(codeClone) - 1]){
-		println("start loop with i : <codeClone[i]>"); // it is not starting with the right line to compare must be 0-5, 1-6 now is 0-5,6-11..
-		if(size(lines) == 6){
-			//println("we have 6 rows");
-			if(checkSixRows(compareList, lines)) println("found duplication");
-			else println("no duplication");
-			lines = [];
-			minus = (-5);
+	for(i <- [0..size(codeClone)- 1 ]){
+		for(u <- [0..5]){
+			if(i+u >= size(codeClone)){
+				check = false;
+			}else{
+				lines += codeClone[u+i];
+			}
 		}
-		//t = i + minus;
-		lines += codeClone[i];
+		if(check == false && size(lines) < 6){
+			lines = [];
+			check = true;
+		}else{
+			if(checkSixRows(compareList, lines)) println("found duplication");
+		lines = [];
+		}
 	}
+}
+
+public list[str] makeSixLines(list[str] file, rowNumber){
+	
 }
 
 /* Method to check six rows from two lists
@@ -60,9 +74,17 @@ public void checkCodeDuplicationInOneFile(list[str] file){
 */
 public bool checkSixRows(list[str] compareList,list[str] lines){
 	checkCounter = 0;
-	for(i <- [0..5]){
-		if(compareList[i] == lines[i])	checkCounter += 1;
-	}	
+	for(i <- [0..size(compareList) - 1]){  // lines
+		str com = compareList[i];   // I need to replace all white spaces in front of the code to check it better
+		com = replaceAll(com, "\t", "");
+		com = replaceAll(com, " ", "");
+		str lin =  lines[i];
+		lin = replaceAll(lin, "\t", "");
+		lin = replaceAll(lin, " ", "");
+		//println("compare : <com>  lines : <lin>");		
+		if(com == lin)	checkCounter += 1;  // When I found true i need to marker that linen and remove them from the file
+	}
+	//println("-------------------- <checkCounter>");	
 	if(checkCounter == 6) return true;
 	else return false;
 }
@@ -78,10 +100,15 @@ public list[list[str]] takeNextLines(list[str] file, int fileNumber){
 	compareList = [];
 	for(i <- [0..size(file) - 1]){
 		if(fileNumber == i){
+		//println("File : <file[i]>   i : <i>");
 		for(a <- [0..5]){
-			compareList += file[a];
-			codeClone = delete(codeClone, 0);
+			if(i + a <= size(file) - 1){
+			//println("i+a : <i+a>   size : <size(file)>");
+			compareList += file[i + a];
+			codeClone = delete(codeClone, i);
+			}
 		}
+		//println(compareList);
 		return [compareList,codeClone]; 
 		}
 	}

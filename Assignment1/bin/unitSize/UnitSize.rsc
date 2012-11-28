@@ -63,7 +63,7 @@ public list[str] visitSimpleMethods(AstNode classNode){
       		if(complexcity == 1) met += name; // countSimple += 1;
       		println("method end !!!!!!!!!!!!!!!!!!");
       		println(returnType);
-      		getMethodLength(returnType);
+      		//getMethodLength(returnType);
       		countComplexity = 0;
       	}
       	
