@@ -13,6 +13,7 @@ import count::CountLoops;
 import count::CountProjects;
 import complexcity::ComplexcityAnalyzer;
 import duplication::Checker;
+import unitSize::UnitSize;
 import Set;
 import List;
 
@@ -29,19 +30,19 @@ public void main(){
 	// Step 3 : counting the classes & packages
 	list[loc] javaClasses = countJavaClasses(workspaceList[0]);
 	println("<size(javaClasses)> classes are in the project");
-	println("Start with class : <javaClasses[0]>");	
 	println("------ PRINT LINES -------");
 	println("Total Blank lines in project : <countBlankLinesProject(javaClasses)>");
 	println("Total Comment lines in project: <countCommentLinesProject(javaClasses)>");
 	println("Total Code lines in project : <countCodeLinesProject(javaClasses)>");
 	println("Total lines in project : <countLinesTotalProject(javaClasses)>");
 	// Step 7 : checking code duplication  
-	//checkDuplicationProject(javaClasses);  --> NOT WORKING
+	//checkDuplicationProject(javaClasses);  // --> NOT WORKING
 	// Step 8 : checking complexcity --> not complete at the moment
 	scanProjectComplexity(javaClasses);
 	// Step 9 : show Unit size
 	println("------ UNIT SIZE -------");
-	println("Unit Size measuring with Lines of codes : <countLinesTotalProject(javaClasses)>");
+	//println("Unit Size measuring with Lines of codes : <countLinesTotalProject(javaClasses)>");
+	getCodeLinesToMethod(javaClasses);
 }
 
 

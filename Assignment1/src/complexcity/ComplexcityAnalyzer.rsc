@@ -11,6 +11,7 @@ import lang::java::jdt::JavaADT;
 import analysis::graphs::Graph;
 import Prelude;
 import Set;
+import count::CountLines;
 
 
 /* Method to scan the complexity of the project
@@ -23,18 +24,18 @@ public void scanProjectComplexity(list[loc] project){
 	int countProjectComplex = 0;
 	int countProjectUntestable = 0;
 	for(s <- project){
-		println("visiting loc <s.top>");
+		//println("visiting loc <s.top>");
 		AstNode class = makeAnAstnode(s.top);
 		list[int] complexcityInClass = visitMethodsNotesOfFile(class);
-		println("Class has <complexcityInClass[0]> simple methods");
+		//println("Class has <complexcityInClass[0]> simple methods");
 		countProjectSimple += complexcityInClass[0];
-   		println("Class has <complexcityInClass[1]> more complex methods");
+   		//println("Class has <complexcityInClass[1]> more complex methods");
    		countProjectMoreComplex += complexcityInClass[1];
-   		println("Class has <complexcityInClass[2]> complex methods");
+   		//println("Class has <complexcityInClass[2]> complex methods");
    		countProjectComplex += complexcityInClass[2];
-   		println("Class has <complexcityInClass[3]> untestable methods");
+   		//println("Class has <complexcityInClass[3]> untestable methods");
    		countProjectUntestable += complexcityInClass[3];
-		println("--------------------------");	
+		//println("--------------------------");	
 	}
 	println("Project has <countProjectSimple> simple methods");
 	println("Project has <countProjectMoreComplex> more complex methods");
@@ -71,8 +72,7 @@ public list[int] visitMethodsNotesOfFile(AstNode classNode){
 	countSwitchCase = 0;
 	visit(classNode) {
      case methodDeclaration(list[Modifier] modifiers, list[AstNode] annotations, list[AstNode] genericTypes, Option[AstNode] returnType, str name, list[AstNode] parameters, list[AstNode] possibleExceptions, Option[AstNode] implementation) :{
-      	if(name != oldName){   
-      		println(name);  		
+      	if(name != oldName){   	
       		//printDetails(name, countIfs, countForStatement, countWhileStatement, countSwitchStatement, countDoStatement, countSwitchCase);
       		totalCount = countIfs + countForStatement + countWhileStatement + countSwitchStatement + countDoStatement + countSwitchCase;
       		int complexcity = calculateComplexcity(totalCount);
@@ -80,8 +80,6 @@ public list[int] visitMethodsNotesOfFile(AstNode classNode){
       		elseif(complexcity == 2) countMoreComplex += 1;
       		elseif(complexcity == 3) countComplex += 1;
       		elseif(complexcity == 4) countUntestable += 1;
-      		//println("The method has <rowNumbers> lines");
-      		println("method end");
       		countIfs = 0;
       		countForStatement = 0;
       		countWhileStatement = 0;
@@ -90,7 +88,6 @@ public list[int] visitMethodsNotesOfFile(AstNode classNode){
       		countSwitchCase = 0;
       		totalCount = 0;
       	}
-      	println(classNode@location);
       	oldName = name;     	     	
      }
      case forStatement(list[AstNode] initializers, Option[AstNode] optionalBooleanExpression, list[AstNode] updaters, AstNode body) : countForStatement += 1;
@@ -110,18 +107,13 @@ public list[int] visitMethodsNotesOfFile(AstNode classNode){
    @author Philipp
 */
 public int calculateComplexcity(int complexityScore){
-	if(complexityScore <= 10){
-		println("Complexcity is simple");
-		
+	if(complexityScore <= 10){		
 		return 1;
 	} elseif(complexityScore >= 11 && complexityScore <= 20) {
-		println("Complexcity is more complex");
 		return 2;
 	} elseif(complexityScore >= 21 && complexityScore <= 50){
-		println("Complexcity is complex");
 		return 3;
 	} elseif(complexityScore >= 51){
-		println("Complexcity is untestable");
 		return 4;
 	}
 	
