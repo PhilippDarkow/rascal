@@ -18,12 +18,14 @@ import analysis::graphs::Graph;
    @author Philipp
 */
 public list[loc] countJavaClasses(loc project){
+	list[loc] javaClasses = []; 
 	check = extProject(project);	
 	classes = check@packages;
 	classSet = domain(classes);
 	classList = toList(classSet);
 	for(s <- classList){ 
-		println("Java class name : <s.top>");
+		if(/junit/ := "<s.top>") println("testclass : <s.top>");
+		else javaClasses += s ;  
 	}
-	return classList;
+	return javaClasses;
 }
