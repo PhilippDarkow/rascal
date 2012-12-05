@@ -36,14 +36,10 @@ public Figure drawClassWithLength(loc file){	//render(drawClassWithLength(|proje
 	list[str] class = readProjectFileAsArray(file);
 	int fileLength = size(class) - 1;
 	println("FILE LENGTH : <fileLength>");
-	Figure b1 = box(size(30,fileLength),vsize(fileLength),fillColor("red"),id("javaClass"),resizable(false),
+	Figure b1 = outline([info(100,"a"), warning(125, "b")],fileLength,size(30,fileLength),fillColor("red"),resizable(false),
 				mouseOver(box(text("<file.uri> Lines : <size(class) - 1>"), size(20,20),resizable(false))));  
-	// NOT WORKING
-	//b2 = mapMethodToClass(b1, file);
-	//b1 = box(b2,size(30,fileLength),vsize(fileLength),fillColor("red"),id("javaClass"),resizable(false),
-	//			mouseOver(box(text("<file.uri> Lines : <size(class) - 1>"), size(20,20),resizable(false))));
+	// now we need to to put the right method lines in the array of the outline
 	
-	println("BOX : <b1>");
 	return b1;
 }
 
@@ -66,40 +62,8 @@ public Figure mapMethodToClass(Figure class, loc file){
 		int begin = lineList[0].begin.line;
 		int end = lineList[0].end.line;
 		print(<begin>);
-		b1 = box(fillColor("green"),size(30,2),resizable(false),     
-			 mouseOver(box(text("Lines : <end-begin>"), size(20,20),resizable(false))));  // NEED TO GIVE A POSITION 
 		methodsInBoxes += b1;
 	}
 	
 	return b1;
-}
-
-// !!!!! STUFF FROM THE LIBARY   !!!! FOR TESTING
-public void lala(){
-	b1 = box(size(150,20), fillColor("green"),resizable(false));  // ,align(1,1)
-	b0 = box(b1, size(150,50), fillColor("lightGray"),resizable(false));
-	render(b0);
-	//b1 = box(shrink(1.0),fillColor("green"),align(10,10));
-	//class = box(b1, size(150,50), fillColor("lightGray"));	
-	//render(class);
-}
-
-
-
-public Figure stairs(int nr){
-	props = (nr == 0) ? [] : [mouseOver(stairs(nr-1))];
-	return box(props + 
-        [ ( nr %2 == 0 )? left() : right(),
-          resizable(false),size(100),fillColor("green"),valign(0.25) ]);
-}
-
-public bool intInput(str s){
-	return /^[0-9]+$/ := s;
-}
-
-public Figure higher(){
-	int H = 100;
-    return vcat( [ textfield("<H>", void(str s){H = toInt(s);}, intInput),
-	               box(width(100), vresizable(false), vsize(num(){return H;}), fillColor("red"))
-	             ], shrink(0.5), resizable(false));
 }
