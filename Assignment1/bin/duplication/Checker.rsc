@@ -55,7 +55,11 @@ public list[str] removeCommentsFromFile(list[str] file){
       } 
       return fileWithoutWhiteLines;
 }
-
+/* Method to remove the Comment Lines of a file
+   @param file the file where the comment lines should get removed
+   @return file the file without comment lines
+   @author Abisha
+*/
 public void checkCodeDuplicationInOneFile(list[str] file)
 {
 	list[str]duplicates = removeCommentsAndWhiteLinesFromFile(file);

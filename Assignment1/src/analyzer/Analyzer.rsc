@@ -27,6 +27,7 @@ public void main(){
 	// Step 2 : Count Projects
 	println("Eclipse workspace contains : <countProjectsInWorkspace(workspaceProjects)> projects");		
 	println("Scan project : <workspaceList[0]>");
+	println(workspaceList);
 	// Step 3 : counting the classes & packages
 	list[loc] javaClasses = countJavaClasses(workspaceList[0]);
 	println("<size(javaClasses)> classes are in the project");
@@ -36,11 +37,11 @@ public void main(){
 	println("Total Code lines in project : <countCodeLinesProject(javaClasses)>");
 	println("Total lines in project : <countLinesTotalProject(javaClasses)>");
 	// Step 7 : checking code duplication  
-	checkDuplicationProject(javaClasses);  // --> NOT WORKING
-	// Step 8 : checking complexcity --> not complete at the moment
+	checkDuplicationProject(javaClasses); 
+	// Step 8 : checking complexcity -- not complete at the moment
 	scanProjectComplexity(javaClasses);
 	// Step 9 : show Unit size
-	println("------ UNIT SIZE -------");
+	println("------ UNIT SIZE ---------");
 	//println("Unit Size measuring with Lines of codes : <countLinesTotalProject(javaClasses)>");
 	getCodeLinesToMethod(javaClasses);
 }

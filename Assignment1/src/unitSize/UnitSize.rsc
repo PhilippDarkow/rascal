@@ -102,9 +102,9 @@ public list[rel[str,int]] visitSimpleMethods(AstNode classNode){  // list[str]
      case forStatement(list[AstNode] initializers, Option[AstNode] optionalBooleanExpression, list[AstNode] updaters, AstNode body) : countComplexity += 1;
      case whileStatement(AstNode expression, AstNode body) : countComplexity += 1; 
      case ifStatement(AstNode booleanExpression, AstNode thenStatement, Option[AstNode] elseStatement) : countComplexity += 1;
-     case switchCase(bool isDefault, Option[AstNode] optionalExpression) : countComplexity += 1;
+     case switchCase(false, Option[AstNode] optionalExpression) : countComplexity += 1;
      case doStatement(AstNode body, AstNode whileExpression) : countComplexity += 1;
-     case switchStatement(AstNode expression, list[AstNode] statements) : countComplexity += 1;
+     //case switchStatement(AstNode expression, list[AstNode] statements) : countComplexity += 1;
    };   
    return met;
 }

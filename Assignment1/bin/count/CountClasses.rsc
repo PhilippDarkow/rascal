@@ -24,7 +24,7 @@ public list[loc] countJavaClasses(loc project){
 	classSet = domain(classes);
 	classList = toList(classSet);
 	for(s <- classList){ 
-		if(/junit/ := "<s.top>") println("testclass : <s.top>");
+		if(/(junit|test)/ := "<s.top>") println("testclass : <s.top>");
 		else javaClasses += s ;  
 	}
 	return javaClasses;
