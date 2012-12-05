@@ -36,7 +36,7 @@ public void main(){
 	println("Total Code lines in project : <countCodeLinesProject(javaClasses)>");
 	println("Total lines in project : <countLinesTotalProject(javaClasses)>");
 	// Step 7 : checking code duplication  
-	//checkDuplicationProject(javaClasses);  // --> NOT WORKING
+	checkDuplicationProject(javaClasses);  // --> NOT WORKING
 	// Step 8 : checking complexcity --> not complete at the moment
 	scanProjectComplexity(javaClasses);
 	// Step 9 : show Unit size
