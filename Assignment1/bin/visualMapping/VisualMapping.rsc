@@ -23,6 +23,7 @@ public void makeClassesVisible(loc project){
 		class += drawClassWithLength(javaClasses[i].top);		   // box(fillColor("red"));
 	}
 	println(class);
+	class = sort(class);
 	render(box(hcat(class)));  // hvcat ,gap(5))
 }
 
@@ -72,7 +73,6 @@ public Figure mapMethodToClass(Figure class, loc file){
 	
 	return b1;
 }
-
 
 // !!!!! STUFF FROM THE LIBARY   !!!! FOR TESTING
 public void lala(){

@@ -26,7 +26,7 @@ public void main(){
 	workspaceList = toList(workspaceProjects);               
 	// Step 2 : Count Projects
 	println("Eclipse workspace contains : <countProjectsInWorkspace(workspaceProjects)> projects");		
-	println("Scan project : <workspaceList[0]>");
+	println("Scan project : <workspaceList[1]>");
 	println(workspaceList);
 	// Step 3 : counting the classes & packages
 	list[loc] javaClasses = countJavaClasses(workspaceList[0]);
