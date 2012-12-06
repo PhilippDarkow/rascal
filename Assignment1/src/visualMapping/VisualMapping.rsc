@@ -36,13 +36,20 @@ public Figure drawClassWithLength(loc file){	//render(drawClassWithLength(|proje
 	list[str] class = readProjectFileAsArray(file);
 	int fileLength = size(class) - 1;
 	println("FILE LENGTH : <fileLength>");
-	Figure b1 = outline([info(100,"a!!!!!!!!!!!"), warning(125, "b")],fileLength,size(30,fileLength),fillColor("red"),resizable(false),
+	Figure b1 = outline([info(0,"a")],fileLength,size(30,fileLength),fillColor("red"),resizable(false),
 				mouseOver(box(text("<file.uri> Lines : <size(class) - 1>"), size(20,20),resizable(false))));  
-	// now we need to to put the right method lines in the array of the outline
-	//render(b1);  // computeFigure -> check this
+	 // computeFigure -> check this
+	 methodStartLine = mapMethodToClass(file);
+	 list[LineDecoration] infoList = [];
+	 if(size(methodStartLine) >= 1){
+	 for(i <- [0..size(methodStartLine) - 1]){
+		infoList += info(methodStartLine[i],"a");
+	}
+	println(infoList); 
+	}
 	b1 = visit(b1){
 		case fillColor(_) => fillColor("green")
-		case info(_,_) => info(10,"a!!!!!!!!!!!")
+		case [info(_,_)] => infoList
 	}
 	return b1;
 }
@@ -50,24 +57,28 @@ public Figure drawClassWithLength(loc file){	//render(drawClassWithLength(|proje
 /* Method to map a method location to the class size  --> NOT COMPLETE NOT WORKING
    @author Philipp
 */
-public Figure mapMethodToClass(Figure class, loc file){
+public list[int] mapMethodToClass(loc file){
 	AstNode extFile = makeAnAstnode(file);
 	list[rel[loc lineLocation,str methodName]] methods = getMethodLocation(extFile);
-	set[loc] line = methods[0].lineLocation; 
-	list[Figure] methodsInBoxes = [];
-	list[loc] lineList = toList(line);
-	Figure b1 = box();
-	println(lineList);
-	for(i <- [0..size(methods) -1]) {
-		println("Now create for every method a box");
-		set[loc] line = methods[i].lineLocation; 	
-		list[loc] lineList = toList(line);
-		println(lineList); 
-		int begin = lineList[0].begin.line;
-		int end = lineList[0].end.line;
-		print(<begin>);
-		methodsInBoxes += b1;
+	set[loc] lineCountSet = {};
+	if(size(methods) >= 1){
+	for(i <- [0..size(methods) - 1]){
+		lineCountSet += methods[i].lineLocation;
 	}
 	
-	return b1;
+	lineCountList = toList(lineCountSet);
+	list[int] methodLocation = getMethodStartLine(lineCountList);
+	return methodLocation;
+	}
+	return [];
+}
+
+public list[int] getMethodStartLine(list[loc] methods){
+	println(methods);
+	list[int] startLine = [];
+	for(i <- [0..size(methods) - 1]){
+		startLine += methods[i].begin.line;
+	}
+	println("Start Line : " +sort(startLine));
+	return sort(startLine);
 }
