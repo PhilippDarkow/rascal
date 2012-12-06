@@ -23,7 +23,7 @@ public void makeClassesVisible(loc project){
 		class += drawClassWithLength(javaClasses[i].top);		   // box(fillColor("red"));
 	}
 	println(class);
-	class = sort(class);
+	//class = sort(class);
 	render(box(hcat(class)));  // hvcat ,gap(5))
 }
 
@@ -36,10 +36,14 @@ public Figure drawClassWithLength(loc file){	//render(drawClassWithLength(|proje
 	list[str] class = readProjectFileAsArray(file);
 	int fileLength = size(class) - 1;
 	println("FILE LENGTH : <fileLength>");
-	Figure b1 = outline([info(100,"a"), warning(125, "b")],fileLength,size(30,fileLength),fillColor("red"),resizable(false),
+	Figure b1 = outline([info(100,"a!!!!!!!!!!!"), warning(125, "b")],fileLength,size(30,fileLength),fillColor("red"),resizable(false),
 				mouseOver(box(text("<file.uri> Lines : <size(class) - 1>"), size(20,20),resizable(false))));  
 	// now we need to to put the right method lines in the array of the outline
-	
+	//render(b1);  // computeFigure -> check this
+	b1 = visit(b1){
+		case fillColor(_) => fillColor("green")
+		case info(_,_) => info(10,"a!!!!!!!!!!!")
+	}
 	return b1;
 }
 
