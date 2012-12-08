@@ -10,6 +10,7 @@ import complexcity::ComplexcityAnalyzer;
 import lang::java::jdt::Java;
 import lang::java::jdt::JDT;
 import lang::java::jdt::JavaADT;
+import vis::KeySym;
 
 /* Method to make the classes visible 
    @param loc the location of the project
@@ -37,7 +38,11 @@ public Figure drawClassWithLength(loc file){	//render(drawClassWithLength(|proje
 	int fileLength = size(class) - 1;
 	println("FILE LENGTH : <fileLength>");
 	Figure b1 = outline([info(0,"a")],fileLength,size(15,fileLength),fillColor("red"),resizable(false),
-				mouseOver(box(text("<file.uri> Lines : <size(class) - 1>"), size(20,20),resizable(false))));  
+				mouseOver(box(text("<file.uri> Lines : <size(class) - 1>"), size(20,20),resizable(false))),
+				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
+					println("MOUSECLICK");
+					return true;
+	}));  
 	 // computeFigure -> check this
 	 methodStartLine = mapMethodToClass(file);
 	 list[LineDecoration] infoList = [];
