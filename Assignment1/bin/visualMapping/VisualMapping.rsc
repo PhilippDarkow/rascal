@@ -23,8 +23,8 @@ public void makeClassesVisible(loc project){
 		class += drawClassWithLength(javaClasses[i].top);		   // box(fillColor("red"));
 	}
 	println(class);
-	//class = sort(class);
-	render(box(hcat(class)));  // hvcat ,gap(5))
+	class = sort(class);   //makes sort at the moment on methods in class not right
+	render(box(hvcat(class),gap(5)));  // hvcat ,gap(5))  hcat   // render(pack((class),std(gap(10))));
 }
 
 /* Method to draw a class with the length and a mouse over event
@@ -36,7 +36,7 @@ public Figure drawClassWithLength(loc file){	//render(drawClassWithLength(|proje
 	list[str] class = readProjectFileAsArray(file);
 	int fileLength = size(class) - 1;
 	println("FILE LENGTH : <fileLength>");
-	Figure b1 = outline([info(0,"a")],fileLength,size(30,fileLength),fillColor("red"),resizable(false),
+	Figure b1 = outline([info(0,"a")],fileLength,size(15,fileLength),fillColor("red"),resizable(false),
 				mouseOver(box(text("<file.uri> Lines : <size(class) - 1>"), size(20,20),resizable(false))));  
 	 // computeFigure -> check this
 	 methodStartLine = mapMethodToClass(file);
