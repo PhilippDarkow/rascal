@@ -45,7 +45,7 @@ public Figure drawClassWithLength(loc file){
 	 list[LineDecoration] infoList = [];					// create a list of line decoration 
 	 if(size(methodStartLine) >= 1){						// check if one or more methods in the class					
 	 for(i <- [0..size(methodStartLine) - 1]){				// run through the list of start lines
-		infoList += info(methodStartLine[i],"a");			// 
+		infoList += info(methodStartLine[i],"a");			// add in the list the position where the line should appear
 	}
 	
 	}
@@ -56,7 +56,9 @@ public Figure drawClassWithLength(loc file){
 	return b1;
 }
 
-/* Method to map a method location to the class size  --> NOT COMPLETE NOT WORKING
+/* Method to map a method location to the class size  
+   @param file the loc of a java file
+   @return methodStartLocation a list of integers shows where a method starts in a class
    @author Philipp
 */
 public list[int] mapMethodToClass(loc file){
@@ -69,17 +71,21 @@ public list[int] mapMethodToClass(loc file){
 	}
 	
 	lineCountList = toList(lineCountSet);
-	list[int] methodLocation = getMethodStartLine(lineCountList);
-	return methodLocation;
+	list[int] methodStartLocation = getMethodStartLine(lineCountList);
+	return methodStartLocation;
 	}
 	return [];
 }
 
+/* Method to get the the startlines of a method
+   @param methods a list of method location
+   @return startLine the startline positions
+   @author Philipp
+*/
 public list[int] getMethodStartLine(list[loc] methods){
 	list[int] startLine = [];
 	for(i <- [0..size(methods) - 1]){
 		startLine += methods[i].begin.line;
 	}
-	println("Start Line : " +sort(startLine));
 	return sort(startLine);
 }
