@@ -20,7 +20,8 @@ import analysis::graphs::Graph;
 public list[loc] countJavaClasses(loc project){
 	list[loc] javaClasses = []; 
 	check = extProject(project);	
-	classes = check@packages;
+	classes = check@packages;  // classes
+	for(x <- classes) println(x);
 	classSet = domain(classes);
 	classList = toList(classSet);
 	for(s <- classList){ 

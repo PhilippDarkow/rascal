@@ -11,6 +11,7 @@ import lang::java::jdt::Java;
 import lang::java::jdt::JDT;
 import lang::java::jdt::JavaADT;
 import vis::KeySym;
+import util::Editors;
 
 /* Method to make the classes visible 
    @param loc the location of the project
@@ -18,13 +19,14 @@ import vis::KeySym;
 */
 public void makeClassesVisible(loc project){ 
 	list[loc] javaClasses = countJavaClasses(project);   	// get the loc of the java classes
+	println(javaClasses);
 	list[Figure] classFigures = [];							// create a list for the figures of the classes to save
 	//println("<size(javaClasses)> classes are in the project");  
 	for(i <- [0..size(javaClasses) - 1]){					// run through the list 
-		classFigures += drawClassWithLength(javaClasses[i].top);		   // and call the method to draw a class 
+		classFigures += drawClassWithLength(javaClasses[i]);		   // and call the method to draw a class 
 	}
 	classFigures = sort(classFigures);   //makes sort at the moment on methods in class not right
-	render(box(hvcat(classFigures),gap(5)));  // hvcat ,gap(5))  hcat   // render(pack((class),std(gap(10))));
+	render(box(hvcat(classFigures,gap(5))));  // hvcat ,gap(5))  hcat   // render(pack((class),std(gap(10))));
 }
 
 /* Method to draw a class with the length and a mouse over event
@@ -33,15 +35,16 @@ public void makeClassesVisible(loc project){
    @author Philipp
 */
 public Figure drawClassWithLength(loc file){	
-	list[str] class = readProjectFileAsArray(file);			// read the project 
+	list[str] class = readProjectFileAsArray(file.top);			// read the project 
 	int fileLength = size(class) - 1;						// get the size of the class 
 	Figure b1 = outline([info(0,"a")],fileLength,size(15,fileLength),fillColor("red"),resizable(false),
 				mouseOver(box(text("<file.uri> Lines : <size(class) - 1>"), size(20,20),resizable(false))),
 				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
-					println("MOUSECLICK");
+					println("Go to class");
+					edit(file);
 					return true;
 	}));     // create the Figure with the properties the size of the class is the height parameter for the class.
-	 methodStartLine = mapMethodToClass(file);   			// call method to get a list int with the startposition of a method in a class
+	 methodStartLine = mapMethodToClass(file.top);   			// call method to get a list int with the startposition of a method in a class
 	 list[LineDecoration] infoList = [];					// create a list of line decoration 
 	 if(size(methodStartLine) >= 1){						// check if one or more methods in the class					
 	 for(i <- [0..size(methodStartLine) - 1]){				// run through the list of start lines
