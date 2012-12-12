@@ -25,7 +25,9 @@ public void makeClassesVisible(loc project){
 	for(i <- [0..size(javaClasses) - 1]){					// run through the list 
 		classFigures += drawClassWithLength(javaClasses[i]);		   // and call the method to draw a class 
 	}
-	classFigures = sort(classFigures);   //makes sort at the moment on methods in class not right
+	println("---------");
+	println(classFigures[1].maxLine);
+	classFigures = sort(classFigures,bool(Figure a, Figure b){ return a.maxLine >= b.maxLine; });   //makes sort at the moment on methods in class not right
 	render(box(hvcat(classFigures,gap(5))));  // hvcat ,gap(5))  hcat   // render(pack((class),std(gap(10))));
 }
 
