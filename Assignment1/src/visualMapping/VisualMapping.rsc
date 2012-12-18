@@ -37,8 +37,8 @@ public void makeClassesVisible(loc project){
 */
 public Figure drawClassWithLength(loc file){	
 	list[str] class = readProjectFileAsArray(file.top);			// read the project 
-	int fileLength = size(class) - 1;						// get the size of the class 
-	Figure b1 = outline([info(0,"a")],fileLength/2,size(15,fileLength/2),fillColor("red"),resizable(false),
+	int fileLength = (size(class) - 1) / 4;						// get the size of the class 
+	Figure b1 = outline([info(0,"a")],fileLength,size(15,fileLength),fillColor("red"),resizable(false),
 				mouseOver(box(text("<file.uri> Lines : <size(class) - 1>"),resizable(false))),
 				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
 					println("Go to class");
@@ -58,7 +58,6 @@ public Figure drawClassWithLength(loc file){
 	list[rel[str methodName,int complexity]] moreComplexMethods = visitMoreComplexMethods(extFile);
 	list[rel[str methodName,int complexity]] complexMethods = visitComplexMethods(extFile);
 	list[rel[str methodName,int complexity]] untestableMethods = visitUntestableMethods(extFile);
-	println("Simple Methods : <simpleMethods>");
 	b1 = visit(b1){
 		case fillColor(_) => fillColor("green")
 		case [info(_,_)] => infoList
@@ -96,7 +95,7 @@ public list[int] mapMethodToClass(loc file){
 public list[int] getMethodStartLine(list[loc] methods){
 	list[int] startLine = [];
 	for(i <- [0..size(methods) - 1]){
-		startLine += methods[i].begin.line / 2;
+		startLine += methods[i].begin.line / 4;
 	}
 	return sort(startLine);
 }
