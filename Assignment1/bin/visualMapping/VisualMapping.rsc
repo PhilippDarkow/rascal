@@ -7,6 +7,7 @@ import Prelude;
 import visualMapping::MethodLocation;
 import reader::Reader;
 import complexcity::ComplexcityAnalyzer;
+import unitSize::UnitSize;
 import lang::java::jdt::Java;
 import lang::java::jdt::JDT;
 import lang::java::jdt::JavaADT;
@@ -25,10 +26,8 @@ public void makeClassesVisible(loc project){
 	for(i <- [0..size(javaClasses) - 1]){					// run through the list 
 		classFigures += drawClassWithLength(javaClasses[i]);		   // and call the method to draw a class 
 	}
-	println("---------");
-	println(classFigures[1].maxLine);
 	classFigures = sort(classFigures,bool(Figure a, Figure b){ return a.maxLine >= b.maxLine; });   //makes sort at the moment on methods in class not right
-	render(box(hvcat(classFigures,gap(5))));  // hvcat ,gap(5))  hcat   // render(pack((class),std(gap(10))));
+	render(box(hcat(classFigures,gap(5))));  // hvcat ,gap(5))  hcat   // render(pack((class),std(gap(10))));
 }
 
 /* Method to draw a class with the length and a mouse over event
@@ -39,8 +38,8 @@ public void makeClassesVisible(loc project){
 public Figure drawClassWithLength(loc file){	
 	list[str] class = readProjectFileAsArray(file.top);			// read the project 
 	int fileLength = size(class) - 1;						// get the size of the class 
-	Figure b1 = outline([info(0,"a")],fileLength,size(15,fileLength),fillColor("red"),resizable(false),
-				mouseOver(box(text("<file.uri> Lines : <size(class) - 1>"), size(20,20),resizable(false))),
+	Figure b1 = outline([info(0,"a")],fileLength/2,size(15,fileLength/2),fillColor("red"),resizable(false),
+				mouseOver(box(text("<file.uri> Lines : <size(class) - 1>"),resizable(false))),
 				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
 					println("Go to class");
 					edit(file);
@@ -54,9 +53,16 @@ public Figure drawClassWithLength(loc file){
 	}
 	
 	}
+	AstNode extFile = makeAnAstnode(file);
+	list[rel[str methodName,int complexity]] simpleMethods = visitSimpleMethods(extFile);
+	list[rel[str methodName,int complexity]] moreComplexMethods = visitMoreComplexMethods(extFile);
+	list[rel[str methodName,int complexity]] complexMethods = visitComplexMethods(extFile);
+	list[rel[str methodName,int complexity]] untestableMethods = visitUntestableMethods(extFile);
+	println("Simple Methods : <simpleMethods>");
 	b1 = visit(b1){
 		case fillColor(_) => fillColor("green")
 		case [info(_,_)] => infoList
+		case mouseOver(_) => mouseOver(box(text("<file.uri>\nLines : <size(class) - 1>\nMethods : <size(methodStartLine) - 1>\nSimple Methods : <size(simpleMethods)>\nMore Complex Methods : <size(moreComplexMethods)>\nComplex Methods : <size(complexMethods)>\nUntestable Methods : <size(untestableMethods)>"),resizable(false)))
 	}
 	return b1;
 }
@@ -90,7 +96,7 @@ public list[int] mapMethodToClass(loc file){
 public list[int] getMethodStartLine(list[loc] methods){
 	list[int] startLine = [];
 	for(i <- [0..size(methods) - 1]){
-		startLine += methods[i].begin.line;
+		startLine += methods[i].begin.line / 2;
 	}
 	return sort(startLine);
 }
